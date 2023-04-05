@@ -7,6 +7,10 @@
     background-color: var(--bg-color-light);
 }
 
+.register-container__form__label{
+    width: 100%;
+}
+
 .register-container__form{
     display: flex;
     flex-direction: column;  

@@ -1,0 +1,58 @@
+{
+  "user": [
+    {
+      "id": 1,
+      "login": "Oknokus",
+      "password": "1348397ks",
+      "email": "oknokus@gmail.com",
+      "categories": [
+        {
+          "id": 1,
+          "categoryName": "Front-End"
+        }
+      ]
+    },
+    {
+      "login": "123123",
+      "email": "oknokus@gmail.com",
+      "password": "12341234Fd1",
+      "categories": [],
+      "id": 2
+    },
+    {
+      "login": "123123",
+      "email": "oknokus@gmail.com",
+      "password": "1231231231FF1a",
+      "categories": [],
+      "id": 3
+    },
+    {
+      "login": "1123",
+      "email": "oknokus@gmail.com",
+      "password": "12312sdfsdfsdfF2",
+      "categories": [],
+      "id": 4
+    },
+    {
+      "login": "123",
+      "email": "oknokus@gmail.com",
+      "password": "123213123F2D11sd",
+      "categories": [],
+      "id": 5
+    },
+    {
+      "login": "123123",
+      "email": "oknokus@gmail.com",
+      "password": "asdad123Dw123",
+      "categories": [],
+      "id": 6
+    },
+    {
+      "login": "123123",
+      "email": "oknokus@gmail.com",
+      "password": "123123123FFdd",
+      "categories": [],
+      "id": 7
+    }
+  ]
+}
