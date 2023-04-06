@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 
+import FormRegister from '../../components/formRegister';
+
 
 import styles from './LoginPage.scss';
 
 
 const LoginPage = () => {
     return (
-        <h1>hhh</h1>
+        <FormRegister /> 
     )
 }
 

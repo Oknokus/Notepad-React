@@ -3,7 +3,7 @@
     {
       "id": 1,
       "login": "Oknokus",
-      "password": "1348397ks",
+      "password": "1348397ks1",
       "email": "oknokus@gmail.com",
       "categories": [
         {
@@ -13,46 +13,32 @@
       ]
     },
     {
-      "login": "123123",
+      "login": "okno",
       "email": "oknokus@gmail.com",
-      "password": "12341234Fd1",
+      "password": "123123qQ123",
       "categories": [],
       "id": 2
     },
     {
-      "login": "123123",
-      "email": "oknokus@gmail.com",
-      "password": "1231231231FF1a",
-      "categories": [],
-      "id": 3
-    },
-    {
-      "login": "1123",
-      "email": "oknokus@gmail.com",
-      "password": "12312sdfsdfsdfF2",
-      "categories": [],
-      "id": 4
-    },
-    {
       "login": "123",
       "email": "oknokus@gmail.com",
-      "password": "123213123F2D11sd",
+      "password": "3213221Qw1123",
       "categories": [],
-      "id": 5
-    },
+      "id": 3
+    }
+  ],
+  "register": [
     {
-      "login": "123123",
+      "id": 1,
+      "login": "Oknokus",
+      "password": "1348397ks1",
       "email": "oknokus@gmail.com",
-      "password": "asdad123Dw123",
-      "categories": [],
-      "id": 6
-    },
-    {
-      "login": "123123",
-      "email": "oknokus@gmail.com",
-      "password": "123123123FFdd",
-      "categories": [],
-      "id": 7
+      "categories": [
+        {
+          "id": 1,
+          "categoryName": "Front-End"
+        }
+      ]
     }
   ]
 }
