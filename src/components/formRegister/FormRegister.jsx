@@ -3,16 +3,17 @@ import {Link, useLocation} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 
 // import styles from './FormRegister.module.css';
 
 
 const FormRegister = () => {
+    const[baseDate, setBaseDate] = useState(false)
     const navigate = useNavigate();
     const location = useLocation()
    
-
     const {
         register,
         reset,
@@ -22,29 +23,43 @@ const FormRegister = () => {
         }
     } = useForm({mode: "onblur"})
 
-    const registerUser = (data) => {  
-        console.log(data)
-        axios.post("http://localhost:8080/user", {
-            ...data,
-            categories: []
-           
-        }).then(res => {
+    const registerUser = (data) => { 
+        if(data) {          
+            axios.post("http://localhost:8080/user",  { 
+                ...data        
+            }).then(res => {
             reset();
             navigate("/")
         })
-        .catch(err => console.log(err))        
+        .catch(err => console.log(err))
+        }               
     }
+    
 
-    const loginUser = (data) => {
-        console.log(data)     
-        axios.post("http://localhost:8080/register", {
-            ...data    
-        }).then(res => {           
-            reset();
-            navigate("/")
-        })
-        .catch(err => console.log(err))        
+    const loginUser = (data) => {          
+            if(data) {   
+               const arr = []; 
+               const dataBase = data.email;               
+           
+                fetch("http://localhost:8080/user")
+                .then(response => response.json())
+                .then(commits => {                    
+                    const result = commits.find(elem => {
+                        return elem.email === data.email && elem.password === data.password                        
+                    }) 
+
+                    if(result) {
+                        navigate("/")
+                    } else {
+                        reset();
+                    }
+                }
+                )
+                                 
+        }
     }
+    
+
 
     const onSubmit = (data) => {
         location.pathname === "/register" ?  registerUser(data) : loginUser(data)
@@ -159,4 +174,5 @@ const FormRegister = () => {
         </>
     )
 }
+
 export default FormRegister;

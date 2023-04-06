@@ -1,0 +1,16 @@
+{
+  "user": [
+    {
+      "login": "Oknokus",
+      "email": "oknokus@gmail.com",
+      "password": "123123QWERqwe",
+      "id": 1
+    },
+    {
+      "login": "Oknokus1",
+      "email": "oknokus1@gmail.com",
+      "password": "123123Qwer",
+      "id": 2
+    }
+  ]
+}
