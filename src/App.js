@@ -10,10 +10,10 @@ import './App.scss';
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path='/' element={<HomePage/>}/>
+      <Routes>        
         <Route path='register' element={<RegisterPage/>}/>
         <Route path='login' element={<LoginPage/>}/>
+        <Route path='/' element={<HomePage/>}/>
       </Routes>          
     </div>    
   );

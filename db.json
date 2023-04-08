@@ -3,13 +3,15 @@
     {
       "login": "Oknokus",
       "email": "oknokus@gmail.com",
-      "password": "123123QWERqwe",
+      "password": "12341234Qwer",
+      "categories": [],
       "id": 1
     },
     {
       "login": "Oknokus1",
       "email": "oknokus1@gmail.com",
-      "password": "123123Qwer",
+      "password": "123412345Qwer",
+      "categories": [],
       "id": 2
     }
   ]

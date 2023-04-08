@@ -1,0 +1,92 @@
+.aside-container{
+    width: var(--width-medium);
+    padding: var(--size-medium) var(--size-small) 0px;
+    background: var(--bg-color-grey);
+    height: 100vh;
+    &__main{
+        padding: var(--size-small);
+        margin-bottom: var(--size-medium);
+        border-radius: var(--size-verySmall);
+        cursor: pointer;
+        &:hover{
+            background: var(--bg-color-white);
+        }
+    }   
+    &__menu{
+        display: flex;
+        flex-direction: column;
+        &__li{
+            display: flex;
+            padding: var(--size-small);
+            margin-bottom: var(--size-verySmall);
+            border-radius: var(--size-verySmall);
+            cursor: pointer; 
+            &__color{
+                width: var( --size-small);
+                height: var(--size-small);   
+                margin-right: var(--size-verySmall);
+                border-radius: 50%; 
+            }           
+            &:hover{
+                background: var(--bg-color-white);
+            }
+        }
+    }
+    &__create{
+        padding: var(--size-small);
+        margin-top: var(--size-medium);
+        border-radius: var(--size-verySmall);
+        cursor: pointer;
+        position: relative;
+        &__editor{
+            position: absolute;
+            top: 110%;
+            width: var(--width-medium);
+            background: var(--bg-color-white);
+            padding: var(--size-small);
+            box-shadow: var(--box-shadow);
+            border-radius: var(--size-verySmall);            
+        }        
+        &:hover{
+            background: var(--bg-color-white);            
+        }
+    }    
+}
+
+.aside-container__create__editor__input{
+    width: 100%;
+    border-radius: var(--size-verySmall);
+    height: var(--size-medium);
+    padding: 0 var(--size-small);   
+}
+
+.aside-container__create__editor__colors{   
+   display: flex;
+   justify-content: center;
+   column-gap: var(--size-verySmall); 
+   padding: var(--size-verySmall);
+}
+
+.aside-container__create__editor__color{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.aside-container__create__editor__btn{
+    width: 100%;
+    cursor: pointer;
+    background: var(--bg-color-dark);
+    border-radius: var(--size-verySmall);
+    padding: var(--size-verySmall) 0;
+    color: var(--bg-color-white);
+    border: none;
+}
+
+.aside-container__create__editor__close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translate(50%, -50%)   ;
+}
+

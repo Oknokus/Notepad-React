@@ -3,16 +3,20 @@ import {Link, useLocation} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+
+import { CustumContext } from '../../hookHelper/Context';
 
 
 // import styles from './FormRegister.module.css';
 
 
 const FormRegister = () => {
-    const[baseDate, setBaseDate] = useState(false)
+    const {setUser} = useContext(CustumContext);
+
+    const[baseDate, setBaseDate] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation()
+    const location = useLocation();
    
     const {
         register,
@@ -26,10 +30,19 @@ const FormRegister = () => {
     const registerUser = (data) => { 
         if(data) {          
             axios.post("http://localhost:8080/user",  { 
-                ...data        
-            }).then(res => {
+                ...data,
+                categories: []        
+            }).then(res => {  
+                console.log(res)              
+                setUser([
+                    res.data
+                ])                  
             reset();
-            navigate("/")
+            navigate("/");         
+            
+            localStorage.setItem(               
+                res.data.password, JSON.stringify(res.data)                       
+            )          
         })
         .catch(err => console.log(err))
         }               
@@ -37,25 +50,27 @@ const FormRegister = () => {
     
 
     const loginUser = (data) => {          
-            if(data) {   
-               const arr = []; 
-               const dataBase = data.email;               
-           
+            if(data) { 
                 fetch("http://localhost:8080/user")
                 .then(response => response.json())
-                .then(commits => {                    
-                    const result = commits.find(elem => {
-                        return elem.email === data.email && elem.password === data.password                        
-                    }) 
+                .then(commits => { 
+                    const resultLocalStorage = localStorage.getItem(data.password);   
 
-                    if(result) {
-                        navigate("/")
-                    } else {
-                        reset();
-                    }
-                }
-                )
-                                 
+                    const result = commits.find(elem => {
+                        return elem.email === data.email && elem.password === data.password && resultLocalStorage !== null                     
+                    }) 
+                   
+                  
+                    if(result) {    
+                            setUser(data.password);
+                            navigate("/");
+                            reset();                              
+                        } else {                           
+                             navigate("/register"); 
+                             reset();
+                        }                
+                }                 
+            )                  
         }
     }
     

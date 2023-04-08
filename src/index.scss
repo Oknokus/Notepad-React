@@ -2,16 +2,26 @@
     // Color
     --bg-color-light: #c48787;
     --bg-color-dark: #503737;
+    --bg-color-grey: #5eaaaa;
+    --bg-color-white: #ffff;
+
 
     // Size
+    --size-verySmall: 5px;
     --size-small: 15px;
     --size-medium: 40px;
     --size-large: 50px;
-   
+
+    // Width
+    --width-small : 200px;  
+    --width-medium : 250px;  
+    
+    // Box-shadow
+    --box-shadow: 5px 6px 7px black;
 }
 
  *{     
-    margin: auto;  
+    margin: 0;  
     box-sizing: border-box;
     text-decoration: none;
     list-style-type: none;

@@ -1,12 +1,28 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+
+import {CustumContext} from "../../hookHelper/Context";
+
+import AsideSection  from "../../components/asideSection/AsideSection"
+
 
 
 import styles from './HomePage.scss';
 
 
-const HomePage = () => {
+const HomePage = () => { 
+    const {user} = useContext(CustumContext);
+    console.log("StorageUsers", localStorage.getItem(user));   
+    
+    
     return (
-        <><h1>HELLO!!! HomePage</h1></>
+        <>
+            <AsideSection />
+
+                      
+           
+       </>
     )
 }
+
 export default HomePage;
