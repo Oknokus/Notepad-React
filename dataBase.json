@@ -1,0 +1,53 @@
+{
+  "users": [
+    {
+      "email": "",
+      "password": "",
+      "id": "",
+      "categories": [
+        {
+          "id": "",
+          "categoryName": "",
+          "tasks": [
+            {
+              "taskTitle": "",
+              "id": "",
+              "isComplete": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "email": "oknokus@gmail.com",
+      "password": "$2a$10$pzb2hD9PzA0stc/PcHw0VOLoFKLoS9jKLAVY523UIfR.DQhRX0HAS",
+      "login": "Oknokus",
+      "categories": [],
+      "id": "FHUJVVT"
+    },
+    {
+      "email": "oknokus1@gmail.com",
+      "password": "$2a$10$cfFp9hau25/UudrXB9tJTOPHDxv6bXUP095k5UYpyR/UTHElplNdq",
+      "login": "Oknokus",
+      "categories": [],
+      "id": "rk-EM4g"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

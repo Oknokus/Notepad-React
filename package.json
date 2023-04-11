@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "server": "json-server-auth --watch db.json --port 8080",
+    "server": "json-server-auth --watch dataBase.json --port 8080",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

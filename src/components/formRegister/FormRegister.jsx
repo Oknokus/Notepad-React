@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {Link, useLocation} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useContext, useState } from 'react';
 
 import { CustumContext } from '../../hookHelper/Context';
@@ -12,7 +12,7 @@ import { CustumContext } from '../../hookHelper/Context';
 
 
 const FormRegister = () => {
-    const {setUser, user} = useContext(CustumContext);
+    const {setUserState, userState} = useContext(CustumContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -28,13 +28,16 @@ const FormRegister = () => {
 
     const registerUser = (data) => {         
         if(data) {                       
-            axios.post("http://localhost:8080/posts", {
-                [data.email]: {
-                    ...data,
-                    category: []
-                }
-            }).then(res => {     
-                localStorage.setItem(data.email, JSON.stringify(Object.values(res.data)));                  
+            axios.post("http://localhost:8080/register", {
+                ...data, 
+                categories: []                
+            }).then(res => {                  
+                setUserState({
+                    token: res.data.accessToken,
+                    ...res.data.user
+                })  
+
+            localStorage.setItem("user", JSON.stringify(res.data))   
             reset();
             navigate("/");                       
         })
@@ -43,31 +46,22 @@ const FormRegister = () => {
     }
     
 
-    const loginUser = (data) => {   
-            if(data) {                                 
-                fetch("http://localhost:8080/posts")
-                .then(response => response.json())
-                .then(commits => { 
-                     const result = commits.find(elem => { 
-                        const elemData = Object.entries(elem);
-                        const elemEmail = elemData[0][0];
-                        const elemPassword = elemData[0][1].password;                       
-
-                        return elemEmail === data.email && elemPassword === data.password && localStorage.getItem(elemEmail) !== null
-                    });                   
-                                     
-                    if(result) {    
-                    setUser(data.email);
-                        navigate("/");                         
-                        reset();                              
-                    } else {                           
-                         navigate("/register"); 
-                         reset();
-                    } 
-                }                           
-            )                  
-        }
-    }
+    const loginUser = (data) => {        
+            axios.post("http://localhost:8080/login", {
+                ...data
+            })
+                .then(res => {
+                    setUserState({
+                        token: res.data.accessToken,
+                        ...res.data.user
+                    })  
+                    localStorage.setItem("user", JSON.stringify(res.data))  
+                    reset();
+                    navigate("/");
+                })
+                .catch(err => console.log(err))
+                }  
+    
     
 
     const onSubmit = (data) => {

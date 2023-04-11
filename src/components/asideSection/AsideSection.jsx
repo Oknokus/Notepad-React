@@ -16,9 +16,7 @@ const AsideSection = () => {
     const [color, setColor] = useState(dataColors[0]);
     const [category, setCategory] = useState([]);
     // const [localStorageStore, setLocalStorageStore] = useState()
-   
-    const localStorageStore = localStorage.getItem(user);
- 
+    
     const addCategoty = () => {         
         let newCategory = ({
             category,

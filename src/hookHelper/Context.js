@@ -4,21 +4,17 @@ export const CustumContext = createContext();
 
 export const Context = (props) => {
     const [user, setUser] = useState();
-
-    const [localState, setLocalState] = useState({});
-
-    // const [userState, setUserState] = useState();
-
-    const userState = {
+    const [userState, setUserState] = useState({
         email: ""
-    }
+    });
 
 
     
     const value = {
         user,
         setUser, 
-        userState
+        userState,
+        setUserState
     };
 
     return <CustumContext.Provider value={value}>
