@@ -12,9 +12,8 @@ import { CustumContext } from '../../hookHelper/Context';
 
 
 const FormRegister = () => {
-    const {setUser} = useContext(CustumContext);
+    const {setUser, user} = useContext(CustumContext);
 
-    const[baseDate, setBaseDate] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
    
@@ -27,54 +26,49 @@ const FormRegister = () => {
         }
     } = useForm({mode: "onblur"})
 
-    const registerUser = (data) => { 
-        if(data) {          
-            axios.post("http://localhost:8080/user",  { 
-                ...data,
-                categories: []        
-            }).then(res => {  
-                console.log(res)              
-                setUser([
-                    res.data
-                ])                  
+    const registerUser = (data) => {         
+        if(data) {                       
+            axios.post("http://localhost:8080/posts", {
+                [data.email]: {
+                    ...data,
+                    category: []
+                }
+            }).then(res => {     
+                localStorage.setItem(data.email, JSON.stringify(Object.values(res.data)));                  
             reset();
-            navigate("/");         
-            
-            localStorage.setItem(               
-                res.data.password, JSON.stringify(res.data)                       
-            )          
+            navigate("/");                       
         })
         .catch(err => console.log(err))
         }               
     }
     
 
-    const loginUser = (data) => {          
-            if(data) { 
-                fetch("http://localhost:8080/user")
+    const loginUser = (data) => {   
+            if(data) {                                 
+                fetch("http://localhost:8080/posts")
                 .then(response => response.json())
                 .then(commits => { 
-                    const resultLocalStorage = localStorage.getItem(data.password);   
+                     const result = commits.find(elem => { 
+                        const elemData = Object.entries(elem);
+                        const elemEmail = elemData[0][0];
+                        const elemPassword = elemData[0][1].password;                       
 
-                    const result = commits.find(elem => {
-                        return elem.email === data.email && elem.password === data.password && resultLocalStorage !== null                     
-                    }) 
-                   
-                  
+                        return elemEmail === data.email && elemPassword === data.password && localStorage.getItem(elemEmail) !== null
+                    });                   
+                                     
                     if(result) {    
-                            setUser(data.password);
-                            navigate("/");
-                            reset();                              
-                        } else {                           
-                             navigate("/register"); 
-                             reset();
-                        }                
-                }                 
+                    setUser(data.email);
+                        navigate("/");                         
+                        reset();                              
+                    } else {                           
+                         navigate("/register"); 
+                         reset();
+                    } 
+                }                           
             )                  
         }
     }
     
-
 
     const onSubmit = (data) => {
         location.pathname === "/register" ?  registerUser(data) : loginUser(data)

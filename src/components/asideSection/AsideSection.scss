@@ -48,7 +48,8 @@
             border-radius: var(--size-verySmall);            
         }        
         &:hover{
-            background: var(--bg-color-white);            
+            background: var(--bg-color-white);      
+                              
         }
     }    
 }
@@ -64,7 +65,7 @@
    display: flex;
    justify-content: center;
    column-gap: var(--size-verySmall); 
-   padding: var(--size-verySmall);
+   padding: var(--size-small);
 }
 
 .aside-container__create__editor__color{

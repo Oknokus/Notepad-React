@@ -1,3 +1,3 @@
 export const dataColors = [
-    "yellow", "blue", "red", "black", "green", "orange", "grey"
+    "yellow", "blue", "red", "black", "green", "orange", "grey", "silver"
 ];
