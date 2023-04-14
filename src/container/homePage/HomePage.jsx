@@ -1,11 +1,10 @@
 import AsideSection  from "../../components/asideSection";
 
 
-import styles from './HomePage.scss';
+import './HomePage.scss';
 
 
-const HomePage = () => {      
-   
+const HomePage = () => { 
     return (
         <>  
             <AsideSection />

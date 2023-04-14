@@ -1,18 +1,17 @@
-import PropTypes from 'prop-types';
 import {Link, useLocation} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
 
-import { CustumContext } from '../../hookHelper/Context';
+import {CustumContext} from '../../hookHelper/Context';
 
 
-// import styles from './FormRegister.module.css';
+import './FormRegister.scss';
 
 
 const FormRegister = () => {
-    const {setUserState, userState} = useContext(CustumContext);
+    const {setUserState} = useContext(CustumContext);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -30,14 +29,17 @@ const FormRegister = () => {
         if(data) {                       
             axios.post("http://localhost:8080/register", {
                 ...data, 
-                categories: []                
-            }).then(res => {                  
+                categories: []
+        }).then(res => {                  
                 setUserState({
                     token: res.data.accessToken,
                     ...res.data.user
                 })  
 
-            localStorage.setItem("user", JSON.stringify(res.data))   
+            localStorage.setItem("user", JSON.stringify({
+                token: res.data.accessToken,
+                ...res.data.user
+            }))   
             reset();
             navigate("/");                       
         })
@@ -45,7 +47,6 @@ const FormRegister = () => {
         }               
     }
     
-
     const loginUser = (data) => {        
             axios.post("http://localhost:8080/login", {
                 ...data
@@ -55,18 +56,22 @@ const FormRegister = () => {
                         token: res.data.accessToken,
                         ...res.data.user
                     })  
-                    localStorage.setItem("user", JSON.stringify(res.data))  
+                    localStorage.setItem("user", JSON.stringify({
+                        token: res.data.accessToken,
+                        ...res.data.user
+                    }))  
                     reset();
                     navigate("/");
                 })
                 .catch(err => console.log(err))
-                }  
-    
-    
+    }  
+        
 
     const onSubmit = (data) => {
         location.pathname === "/register" ?  registerUser(data) : loginUser(data)
     }
+
+   
 
     return (
         <>
