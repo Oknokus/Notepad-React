@@ -3,6 +3,9 @@
     padding: var(--size-medium) var(--size-small) 0px;
     background: var(--bg-color-grey);
     height: 100vh;
+    &__out{
+        position: relative;
+    }
     &__main{
         padding: var(--size-small);
         margin-bottom: var(--size-medium);
@@ -20,16 +23,27 @@
             padding: var(--size-small);
             margin-bottom: var(--size-verySmall);
             border-radius: var(--size-verySmall);
+            align-items: center;
+            position: relative;            
             cursor: pointer; 
             &__color{
                 width: var( --size-small);
                 height: var(--size-small);   
                 margin-right: var(--size-verySmall);
                 border-radius: 50%; 
-            }           
+            }  
+            &__del{
+                display: none;
+            }         
             &:hover{
                 background: var(--bg-color-white);
-            }
+                .aside-container__menu__li__del{
+                    z-index: 11;
+                    position: absolute;
+                    display: inline;
+                    right: var(--size-verySmall);
+                }
+            }            
         }
     }
     &__create{
@@ -66,6 +80,7 @@
    justify-content: center;
    column-gap: var(--size-verySmall); 
    padding: var(--size-small);
+   z-index: 10;
 }
 
 .aside-container__create__editor__color{
@@ -89,5 +104,20 @@
     right: 0;
     top: 0;
     transform: translate(50%, -50%)   ;
+}
+
+.active{
+    padding: var(--size-small);
+    margin-bottom: var(--size-medium);
+    border-radius: var(--size-verySmall);
+    background-color: var(--bg-color-white);
+    cursor: pointer;
+}
+
+.active1{
+    display: flex;     
+    padding: var(--size-small);
+    border-radius: var(--size-verySmall);    
+    background-color: var(--bg-color-white);
 }
 

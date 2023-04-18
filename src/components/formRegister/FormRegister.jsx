@@ -25,9 +25,8 @@ const FormRegister = () => {
         }
     } = useForm({mode: "onblur"})
 
-    const registerUser = (data) => {         
-        if(data) {                       
-            axios.post("http://localhost:8080/register", {
+    const registerUser = (data) => { 
+        axios.post("http://localhost:8080/register", {
                 ...data, 
                 categories: []
         }).then(res => {                  
@@ -43,8 +42,7 @@ const FormRegister = () => {
             reset();
             navigate("/");                       
         })
-        .catch(err => console.log(err))
-        }               
+        .catch(err => console.log(err))                     
     }
     
     const loginUser = (data) => {        

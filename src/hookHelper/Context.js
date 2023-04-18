@@ -4,10 +4,13 @@ export const CustumContext = createContext();
 
 export const Context = (props) => {   
     const [userState, setUserState] = useState([]);
+    const [status, setStatus] = useState("");
     
     const value = {        
         userState,
-        setUserState
+        setUserState,
+        setStatus,
+        status
     };
 
     return <CustumContext.Provider value={value}>

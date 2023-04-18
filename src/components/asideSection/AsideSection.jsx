@@ -1,7 +1,10 @@
 import {useContext, useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
-import {useForm} from 'react-hook-form';
+import { Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import {CustumContext} from '../../hookHelper/Context';
 
@@ -11,36 +14,44 @@ import {dataColors} from "../../constants/dataColors";
 import './AsideSection.scss';
 
 
+
 const AsideSection = () => {  
     const {userState, setUserState} = useContext(CustumContext);
+    const {status, setStatus} = useContext(CustumContext);
     const [active, setActive] = useState(false);
     const [color, setColor] = useState(dataColors[0]);
     const [category, setCategory] = useState();
+    const [categoryState, setCategoryState] = useState("");
+           
 
-    const {
-        register,
-        reset,
-        handleSubmit,
-            formState: {
-                errors
-        }
-    } = useForm({mode: "onblur"})
-
-
-        const addCategoty = () => {         
-        let newCategory = {
+    const addCategoty = () => {         
+    let newCategory = {
             categoryName: category,
             id: uuidv4(),
             color,
             tasks: []            
-        };
+    };
+
+        const stateCategory = JSON.parse(localStorage.getItem("user")) ;      
+             
+        const result = stateCategory.categories.find(elem => {
+        return elem.categoryName === category
+        });
    
         axios.patch(`http://localhost:8080/users/${userState.id}`, { 
             categories: [
                 ...userState.categories,
                 newCategory
             ]})  
-        .then(({data}) => {          
+        .then(({data}) => {           
+            if(result || category.length > 15) {
+                setCategoryState("Такая категория уже есть, или количество символов превышает 15 !!!");                 
+                return; 
+
+            } else {
+                setCategoryState("")
+            }
+            
             setUserState({
                 ...data,
                 token: useState.token
@@ -51,45 +62,69 @@ const AsideSection = () => {
             }))           
             setActive(false);
             setCategory("");
-        })       
+            toast("Категория добавлена!!!")
+        }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))       
     };
 
     const subMit = (e) => {
-        setCategory(e.target.value)
-       
+        setCategory(e.target.value);
+    };
+
+    const logOutUser = () => {
+        localStorage.removeItem("user");
+        setUserState({
+        })
+    };
+
+
+    const deleteCategory = (id) => {       
+        let newArrayCategories = userState.categories.filter((elem) => 
+        elem.id !== id);   
         
-    }
+        axios.patch(`http://localhost:8080/users/${userState.id}`, {categories:newArrayCategories})
+            .then(({data}) => {
+                setUserState({
+                    ...data,
+                    token: useState.token
+                }) 
+                localStorage.setItem("user", JSON.stringify({
+                    ...data,
+                    token: useState.token
+                }))  
+                toast("Категория удалена!!!")
+            })
+            .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
+        }
+            
 
-    const stateCategory = JSON.parse(localStorage.getItem("user")) ;      
-        const result = stateCategory.categories.find(elem => {
-            return elem.categoryName === category 
-        });
-
-    //    if(result) {
-    //     console.log("Такая категория уже есть!!!")        
-    //     setCategory("");
-    //    } 
-
-
-        
     return (
         <div className='aside-container'>
-            <div className='aside-container__main'>               
-                <span className='container-container__tasksAll'>📝Все задачи</span>
+            <button 
+                className='aside-container__out'
+                onClick={logOutUser}>Выйти</button>
+            <div className={status === "All" ? 'active' : 'aside-container__main'}>               
+                <span 
+                    className='container-container__tasksAll'
+                    onClick={() => setStatus("All")}>📝Все задачи</span>
             </div>
 
             
             <ul className='aside-container__menu'> 
-                {   (userState.length === 0) ? (() => addCategoty) :
+                {   (userState.length === 0) ? (<Navigate to="/"/>) :
                     userState.categories.map(elem => (               
-                        <li key={elem.id} className='aside-container__menu__li'>
+                        <li 
+                            key={elem.id}                            
+                            onClick={() => setStatus(elem.categoryName)}
+                            className={status === elem.categoryName ? 'active1' :'aside-container__menu__li'}>                       
                         <span className='aside-container__menu__li__color' style={{background: elem.color}}></span>
                         <span className='container-container__tasks'>{elem.categoryName}</span>
+                        <span 
+                            className='aside-container__menu__li__del'
+                            onClick={() => deleteCategory(elem.id)}>✖️</span>
                         </li>  
                     ))
                 }       
-            </ul>
-           
+            </ul>           
 
             <div className='aside-container__create'>               
                 <span 
@@ -100,30 +135,10 @@ const AsideSection = () => {
 
                         <label className='register-container__form__label'>
 
-                        <span className='login-container__form__errors'>{errors.name && errors.name.message}</span>
+                        <span className='login-container__form__errors'>{categoryState}</span> 
                         <input 
-                        // {...register("name", {
-                        //     required: {
-                        //         message: "Заполните поле",
-                        //         value: true
-                        //     },
-                        //     maxLength : {
-                        //         message: "Максимальное число символов 10",
-                        //         value: 10 
-                        //     },
-                        //     minLength : {
-                        //         message: "Минимальное число символов 3",
-                        //         value: 3
-                        //     },
-                        //     pattern : {
-                        //         message: "Такое имя уже существует",
-                        //         value: result 
-                        //     }
-                        // })} 
-                        value={category} onChange={subMit}
-                           
-                         
-                              className='aside-container__create__editor__input' type="text" placeholder='Название категории' />
+                            value={category} onChange={subMit}
+                            className='aside-container__create__editor__input' type="text" placeholder='Название категории' />
                         </label>
 
                         <div className='aside-container__create__editor__colors'>
@@ -138,10 +153,9 @@ const AsideSection = () => {
                             className='aside-container__create__editor__close'
                             onClick={() => setActive(false)}>✖️</span>
                     </div>
-            </div>
-            
+            </div>            
         </div>
     )
-}
+};
 
 export default AsideSection;
