@@ -12,24 +12,25 @@ import './HomePage.scss';
 
 
 const HomePage = () => { 
-    const {setStatus, status, userState} = useContext(CustumContext);
-   
+    const {setStatus, status, userState, taskName, setTaskName} = useContext(CustumContext);   
     const stateCategory = JSON.parse(localStorage.getItem("user"));
+    
     if(stateCategory === null) {
         return <Navigate to="/register"/>
     };
-     
+    
+    
+    
     return (
         <div className='homepage-container'>
             <AsideSection />            
-            <ToastContainer/>
-
-            {
-                userState.length !== 0 && status === "All" ? userState.categories.map((elem) => (
-                   
-                     <AsideSectionContent key={elem.id} status={elem.categoryName}/>
-                )) : <AsideSectionContent status={status}/>
-            }            
+            <ToastContainer/>                
+                        {
+                            userState.length !== 0 && status === "All" ? userState.categories.map(elem => (                                                            
+                                <AsideSectionContent key={elem.id} status={elem.categoryName}/>)) :
+                               
+                                    <AsideSectionContent status={status}/>
+                        }  
        </div>
     )
 };

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CustumContext } from '../../../hookHelper/Context';
 
 
@@ -7,13 +7,21 @@ import styles from './AsideSectionContent.scss';
 
 
 
-const AsideSectionContent = ({status}) => {  
-    console.log(status)
-    return (
+const AsideSectionContent = ({status}) => { 
+    const{userState} = useContext(CustumContext);
+   
+   
+    return (   
         
-        <>
-            <h2>{status}</h2>
-        </>
+        
+        <div className='header-content'> 
+            <ul>
+                <li>
+                    {status}
+                </li>          
+                                  
+            </ul>
+        </div>
     )
 }
 export default AsideSectionContent;

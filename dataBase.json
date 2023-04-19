@@ -6,8 +6,24 @@
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "ghjghj",
-          "id": "272f3286-fdfd-4ff8-897e-c81d72970404",
+          "categoryName": "123",
+          "id": "7d60ee9f-d083-4bef-be5c-96c9f0097019",
+          "color": "yellow",
+          "tasks": {
+            "taskTitle": "Хвоя",
+            "id": 123123,
+            "isComplete": false
+          }
+        },
+        {
+          "categoryName": "321",
+          "id": "7731475c-62b2-4aaa-9721-89f1cd610ef9",
+          "color": "yellow",
+          "tasks": []
+        },
+        {
+          "categoryName": "123321",
+          "id": "c8b01058-58bb-457a-ba0d-c44093d88ce2",
           "color": "yellow",
           "tasks": []
         }
