@@ -1,27 +1,48 @@
 import PropTypes from 'prop-types';
-import { useContext, useEffect } from 'react';
-import { CustumContext } from '../../../hookHelper/Context';
+
+import UiCheckBox from '../../uiCheckBox/UiCheckBox';
 
 
-import styles from './AsideSectionContent.scss';
+import './AsideSectionContent.scss';
 
 
-
-const AsideSectionContent = ({status}) => { 
-    const{userState} = useContext(CustumContext);
+const AsideSectionContent = ({statusName}) => {
+       const {
+        categoryName,
+        id,
+        tasks
+       } = statusName
    
-   
-    return (   
-        
-        
+     
+    return ( 
         <div className='header-content'> 
-            <ul>
-                <li>
-                    {status}
-                </li>          
-                                  
-            </ul>
+            <ul className='header-content__ul' key={id}>                
+                <li className='header-content__title' >
+                    {categoryName}
+                    <span className='header-content__edit'>🖉</span>                    
+                </li> 
+                    {
+                    tasks.length !== 0 ? 
+                    tasks.map(elem =>
+                        <span className='header-content__tasks'>
+                            <UiCheckBox isComplete={elem.isComplete} />
+                            {elem.taskTitle}
+                        </span>)
+                        :
+                        ""
+                    }
+
+                    <div className='header-content__button'>
+                        <span className='header-content__button_add'>➕</span>
+                        <button className='header-content__button_buttonAdd'>Новая задача</button>
+                    </div>
+            </ul>   
         </div>
     )
 }
+
+AsideSectionContent.propTypes = {
+    statusName:PropTypes.array
+}
+
 export default AsideSectionContent;

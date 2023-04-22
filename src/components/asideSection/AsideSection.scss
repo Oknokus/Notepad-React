@@ -65,7 +65,19 @@
             background: var(--bg-color-white);      
                               
         }
-    }    
+    } 
+    &__out{    
+        padding: var(--size-small) var(--size-medium);
+        cursor: pointer;
+        border-radius: var(--size-small);
+        background-color: var(--bg-color-light-dark);
+        border: none;
+        margin-bottom: var(--size-small); 
+        &:hover{
+            box-shadow: var(--box-shadow);
+            
+        }       
+    }   
 }
 
 .aside-container__create__editor__input{

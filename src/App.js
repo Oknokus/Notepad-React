@@ -1,8 +1,8 @@
 import {Routes, Route} from 'react-router-dom';
-import {useContext, useEffect} from 'react';
+import {useContext, useEffect, useState} from 'react';
 
 
-import { CustumContext } from './hookHelper/Context';
+import {CustumContext} from './hookHelper/Context';
 
 import HomePage from './container/homePage';
 import LoginPage from './container/loginPage';
@@ -12,18 +12,23 @@ import RegisterPage from './container/registerPage';
 import './App.scss';
 
 
-function App() {      
-  const {setUserState} = useContext(CustumContext);    
+function App() {  
+    const {setUserState, setStatus, userState, status} = useContext(CustumContext);    
+  
+    useEffect(() => {  
+        if(localStorage.getItem("user") !== null) {
+          setUserState(JSON.parse(localStorage.getItem("user")))         
+        }        
+    },[])
 
-  useEffect(() => {  
-      if(localStorage.getItem("user") !== null) {
-        setUserState(JSON.parse(localStorage.getItem("user"))) 
-      }     
-  },[setUserState])
+    if(userState.length) {
+      setStatus(useState.categories.map(element => element.categoryName))
+    }
+
 
   return (   
       <Routes>        
-        <Route path='register' element={<RegisterPage/>}/>
+        <Route path='register' element={<RegisterPage userState={userState} status={status} />}/>
         <Route path='login' element={<LoginPage/>}/>
         <Route path='/' element={<HomePage/>}/>
       </Routes> 

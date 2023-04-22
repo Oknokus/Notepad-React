@@ -2,29 +2,55 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$sy3FDdV6p6ufqzgUCuHSMuBAjZa5UYV8NFjsbtvrw0lRgxoAQ21Vi",
+      "password": "$2a$10$H5TGB1Kw928wRfo.r6I/juIrOtvu1p8wav03plJGtFayUUnn9.y/O",
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "123",
-          "id": "7d60ee9f-d083-4bef-be5c-96c9f0097019",
-          "color": "yellow",
-          "tasks": {
-            "taskTitle": "Хвоя",
-            "id": 123123,
-            "isComplete": false
-          }
+          "categoryName": "Универ",
+          "id": "83354309-68c5-4ce8-9e67-7f3f5c7cce02",
+          "color": "blue",
+          "tasks": [
+            {
+              "taskTitle": "Курсы",
+              "id": 123123123,
+              "isComplete": true
+            }
+          ]
         },
         {
-          "categoryName": "321",
-          "id": "7731475c-62b2-4aaa-9721-89f1cd610ef9",
+          "categoryName": "Школа",
+          "id": "c4fa1eb2-c451-4d35-930c-ac8e4ff02de4",
           "color": "yellow",
           "tasks": []
         },
         {
-          "categoryName": "123321",
-          "id": "c8b01058-58bb-457a-ba0d-c44093d88ce2",
+          "categoryName": "Дом",
+          "id": "97dd1f62-50c1-4c40-9ff2-556a8e4e41cd",
+          "color": "blue",
+          "tasks": [
+            {
+              "taskTitle": "Уборка",
+              "id": 12311223123,
+              "isComplete": true
+            }
+          ]
+        },
+        {
+          "categoryName": "Машина",
+          "id": "cefae91c-8417-480b-ace1-f35500047ccd",
+          "color": "green",
+          "tasks": []
+        },
+        {
+          "categoryName": "Спорт",
+          "id": "2bef2739-ad23-4084-a47f-41a845aa3831",
           "color": "yellow",
+          "tasks": []
+        },
+        {
+          "categoryName": "Работа",
+          "id": "84e2e6d9-6151-44a8-8654-c0037d6805b8",
+          "color": "green",
           "tasks": []
         }
       ],

@@ -1,4 +1,42 @@
 .header-content{
-    display: flex;
-    align-items: center;
+    margin-bottom: var(--size-small);    
+    &__ul{
+        margin: var(--size-medium);        
+    }
+    &__title{       
+        font-size: var(--size-large);
+        display: flex;
+        align-items: center; 
+    }
+    &__edit{
+        margin-left: var(--size-small);
+        cursor: pointer;
+        &:hover{
+            opacity: 0.4;
+        }  
+    }&__editDel{
+        display: none;
+    }&__tasks{
+        margin-top: var(--size-small-medium);
+        font-size: var(--size-small-medium);
+        color: var(--bg-color-grey);
+        display: flex;
+        align-items: center;
+    }
+    &__button{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-top: var(--size-verySmall);
+        &_add{
+            cursor: pointer;
+            margin-right: var(--size-verySmall);
+        }
+        &_buttonAdd{
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: var(--size-small-medium);
+        }
+    } 
 }

@@ -12,7 +12,6 @@ import './FormRegister.scss';
 
 const FormRegister = () => {
     const {setUserState} = useContext(CustumContext);
-
     const navigate = useNavigate();
     const location = useLocation();
    
@@ -30,7 +29,7 @@ const FormRegister = () => {
                 ...data, 
                 categories: []
         }).then(res => {                  
-                setUserState({
+            setUserState({
                     token: res.data.accessToken,
                     ...res.data.user
                 })  
@@ -68,8 +67,7 @@ const FormRegister = () => {
     const onSubmit = (data) => {
         location.pathname === "/register" ?  registerUser(data) : loginUser(data)
     }
-
-   
+  
 
     return (
         <>

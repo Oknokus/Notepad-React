@@ -2,7 +2,7 @@ import {useContext, useState} from 'react';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import { Navigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -14,16 +14,16 @@ import {dataColors} from "../../constants/dataColors";
 import './AsideSection.scss';
 
 
-
 const AsideSection = () => {  
     const {userState, setUserState} = useContext(CustumContext);
     const {status, setStatus} = useContext(CustumContext);
+
     const [active, setActive] = useState(false);
     const [color, setColor] = useState(dataColors[0]);
+    
     const [category, setCategory] = useState();
     const [categoryState, setCategoryState] = useState("");
-           
-
+      
     const addCategoty = () => {         
     let newCategory = {
             categoryName: category,
@@ -72,8 +72,7 @@ const AsideSection = () => {
 
     const logOutUser = () => {
         localStorage.removeItem("user");
-        setUserState({
-        })
+        setUserState([])
     };
 
 
@@ -96,16 +95,15 @@ const AsideSection = () => {
             .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
         }
             
-
-    return (
+     return (
         <div className='aside-container'>
             <button 
                 className='aside-container__out'
                 onClick={logOutUser}>Выйти</button>
-            <div className={status === "All" ? 'active' : 'aside-container__main'}>               
+            <div className={status.length !== undefined ? 'active' : 'aside-container__main'}>               
                 <span 
                     className='container-container__tasksAll'
-                    onClick={() => setStatus("All")}>📝Все задачи</span>
+                    onClick={() => setStatus(userState.categories.map(elem => elem))}>📝Все задачи</span>
             </div>
 
             
@@ -114,7 +112,7 @@ const AsideSection = () => {
                     userState.categories.map(elem => (               
                         <li 
                             key={elem.id}                            
-                            onClick={() => setStatus(elem.categoryName)}
+                            onClick={() => setStatus(elem)}
                             className={status === elem.categoryName ? 'active1' :'aside-container__menu__li'}>                       
                         <span className='aside-container__menu__li__color' style={{background: elem.color}}></span>
                         <span className='container-container__tasks'>{elem.categoryName}</span>
