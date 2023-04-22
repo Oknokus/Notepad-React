@@ -9,8 +9,8 @@ import './UiCheckBox.scss';
 
 
 
-const UiCheckBox = ({}) => { 
-    const {isComplete, setIsComplete} = useContext(CustumContext)
+const UiCheckBox = ({isComplete}) => { 
+    const {setIsComplete} = useContext(CustumContext)
     console.log(setIsComplete)
     return (        
         <div 
