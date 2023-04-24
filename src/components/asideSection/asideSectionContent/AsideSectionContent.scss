@@ -38,5 +38,34 @@
             background-color: transparent;
             font-size: var(--size-small-medium);
         }
-    } 
+    }&__input{
+        max-width: var(--width-large);
+        height: var(--size-medium);
+        padding: var(--size-verySmall);       
+        margin-bottom: var(--size-small);
+    }&__btnAdd{
+        padding: var(--size-small) var(--size-small);
+        cursor: pointer;
+        border-radius: var(--size-small);
+        background-color: var(--bg-color-light-dark);
+        border: none;
+        margin-bottom: var(--size-small);
+        margin-right: var(--size-verySmall);
+        &:hover{
+            box-shadow: var(--box-shadow);            
+        }    
+    }&__close{
+        padding: var(--size-small) var(--size-small);
+        cursor: pointer;
+        border-radius: var(--size-small);
+        background-color: var( --bg-color-grey);
+        border: none;
+        margin-bottom: var(--size-small);
+        &:hover{
+            box-shadow: var(--box-shadow);
+            
+        }    
+    }&__formAdd{
+        margin-top: var(--size-small-medium);
+    }
 }

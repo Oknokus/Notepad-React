@@ -80,7 +80,8 @@ const FormRegister = () => {
                 </h1>
 
                     {
-                        location.pathname === "/register" ? <label className='register-container__form__label'> 
+                        location.pathname === "/register" ? 
+                        <label className='register-container__form__label'> 
                         <span className='login-container__form__errors'>{errors.login && errors.login.message}</span>    
 
                         <input {...register("login", {

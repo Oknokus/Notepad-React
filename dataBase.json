@@ -6,51 +6,9 @@
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "Универ",
-          "id": "83354309-68c5-4ce8-9e67-7f3f5c7cce02",
-          "color": "blue",
-          "tasks": [
-            {
-              "taskTitle": "Курсы",
-              "id": 123123123,
-              "isComplete": true
-            }
-          ]
-        },
-        {
-          "categoryName": "Школа",
-          "id": "c4fa1eb2-c451-4d35-930c-ac8e4ff02de4",
-          "color": "yellow",
-          "tasks": []
-        },
-        {
           "categoryName": "Дом",
-          "id": "97dd1f62-50c1-4c40-9ff2-556a8e4e41cd",
-          "color": "blue",
-          "tasks": [
-            {
-              "taskTitle": "Уборка",
-              "id": 12311223123,
-              "isComplete": false
-            }
-          ]
-        },
-        {
-          "categoryName": "Машина",
-          "id": "cefae91c-8417-480b-ace1-f35500047ccd",
-          "color": "green",
-          "tasks": []
-        },
-        {
-          "categoryName": "Спорт",
-          "id": "2bef2739-ad23-4084-a47f-41a845aa3831",
-          "color": "yellow",
-          "tasks": []
-        },
-        {
-          "categoryName": "Работа",
-          "id": "84e2e6d9-6151-44a8-8654-c0037d6805b8",
-          "color": "green",
+          "id": "ec59504a-7f84-47cf-a935-a02b222272f8",
+          "color": "grey",
           "tasks": []
         }
       ],

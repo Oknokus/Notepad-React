@@ -141,7 +141,7 @@ const AsideSection = () => {
 
                         <div className='aside-container__create__editor__colors'>
                             {dataColors.map(elem => 
-                                <span onClick={() => setColor(elem)} className='aside-container__create__editor__color' 
+                                <span onClick={(e) => setColor(elem)} className='aside-container__create__editor__color'                                     
                                     key={elem} style={{background: elem, border: color === elem ? "4px solid black" : "none"}}></span>
                             )}
                         </div>
