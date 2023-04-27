@@ -54,12 +54,13 @@ const AsideSection = () => {
             
             setUserState({
                 ...data,
-                token: useState.token
-            }) 
+                token: userState.token
+            });
+
             localStorage.setItem("user", JSON.stringify({
                 ...data,
-                token: useState.token
-            }))           
+                token: userState.token
+            }));           
             setActive(false);
             setCategory("");
             toast("Категория добавлена!!!")
@@ -80,7 +81,7 @@ const AsideSection = () => {
         let newArrayCategories = userState.categories.filter((elem) => 
         elem.id !== id);   
         
-        axios.patch(`http://localhost:8080/users/${userState.id}`, {categories:newArrayCategories})
+        axios.patch(`http://localhost:8080/users/${userState.id}`, {categories: newArrayCategories})
             .then(({data}) => {
                 setUserState({
                     ...data,

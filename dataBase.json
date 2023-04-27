@@ -2,14 +2,21 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$H5TGB1Kw928wRfo.r6I/juIrOtvu1p8wav03plJGtFayUUnn9.y/O",
+      "password": "$2a$10$GvaJKHYbAqXreANqC5X.5.7NkRaRP9PJ4S038CrGiumof3FghV4tS",
       "login": "Oknokus",
       "categories": [
+        null,
         {
-          "categoryName": "Дом",
-          "id": "ec59504a-7f84-47cf-a935-a02b222272f8",
-          "color": "grey",
-          "tasks": []
+          "categoryName": "2",
+          "id": "23a97a6f-8b35-4131-859c-4150758b30be",
+          "color": "red",
+          "tasks": [
+            {
+              "taskTitle": "123",
+              "id": "fb58a516-a870-4ff2-ae0c-271cb6bc5771",
+              "isComplete": false
+            }
+          ]
         }
       ],
       "id": 1

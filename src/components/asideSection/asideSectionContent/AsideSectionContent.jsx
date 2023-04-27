@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CustumContext } from '../../../hookHelper/Context';
 import {useForm} from 'react-hook-form';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
 
 import UiCheckBox from '../../uiCheckBox/UiCheckBox';
 
@@ -22,8 +20,8 @@ const AsideSectionContent = ({statusName}) => {
         tasks
        } = statusName;
 
-       const{show, setShow, userState, setUserState, status} = useContext(CustumContext);
-
+       const{show, setShow, status, userState, setUserState} = useContext(CustumContext);
+    
        const {
         register,
         reset,
@@ -31,51 +29,61 @@ const AsideSectionContent = ({statusName}) => {
             formState: {
                 errors
         }
-    } = useForm({mode: "onblur"})
+    } = useForm({mode: "onblur"});
 
-    const addTasks = (data) => {
-        let newAddTasks = {
-            tasTitle: data,
-            id: uuidv4(),  
+
+        const addTasks = (data) => {
+            let newTask = {
+            ...data,
+            id: uuidv4(),
             isComplete: false
-    };
+       
+        };       
+            let newCategory = userState.categories.map((elem) => {
+                if(elem.categoryName === statusName.categoryName) {                
+                    return ({...elem, tasks: [...elem.tasks, newTask]})
+                } 
+            });    
 
-    let newCategories = userState.cateigories.map(item => {        
-        if(item.categoryName === status.categoryName) {
-            return {...item, tasks: [...item.tasks, ...newAddTasks]}
-        }
-        return item
-    })
-    console.log(newCategories, userState)
+            
+        axios.patch(`http://localhost:8080/users/${userState.id}`, {            
+                categories: [                                      
+                   ...newCategory,                             
+                ]})  
+            .then(({data}) => {
+                setUserState({
+                    ...data,
+                    newCategory                    
+                })
 
-    axios.patch(`http://localhost:8080/users/${userState.id}`, { 
-        categories: newCategories}) 
-    .then(({data}) => {  
-        setUserState({
-            ...data,
-            token: userState.token
-        }) 
-        localStorage.setItem("user", JSON.stringify({
-            ...data,
-            token: userState.token
-        }))      
-        setShow(false);
-        toast("Категория добавлена!!!")
-    }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))    
+
+                reset();
+                setShow(false);
+            
+               
+                toast("Категория добавлена!!!")
+            }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))
+         
     }
-   console.log()
+
+         
      
     return ( 
         <div className='header-content'> 
-            <ul className='header-content__ul' key={id}>                
-                <li className='header-content__title' >
+            <ul 
+                className='header-content__ul'
+                key={id}>                
+                <li 
+                    className='header-content__title'>
                     {categoryName}
                     <span className='header-content__edit'>🖉</span>                    
                 </li> 
                     {
                     tasks.length !== 0 ? 
-                    tasks.map(elem =>
-                        <span className='header-content__tasks'>
+                    tasks.map((elem, index )=>
+                        <span 
+                            className='header-content__tasks'
+                            key={index}>
                             <UiCheckBox isComplete={elem.isComplete} />
                             {elem.taskTitle}
                         </span>)

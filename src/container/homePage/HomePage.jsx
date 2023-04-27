@@ -28,7 +28,7 @@ const HomePage = () => {
                     {
                         status.length !== undefined ? (
                             userState.categories.map((elem => 
-                                <AsideSectionContent key={elem.id}  statusName={elem}/> ))) 
+                                <AsideSectionContent  key={elem.categoryName} statusName={elem}/> ))) 
                                 : 
                             <AsideSectionContent statusName={status}/>
                     }   
