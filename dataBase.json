@@ -2,24 +2,89 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$GvaJKHYbAqXreANqC5X.5.7NkRaRP9PJ4S038CrGiumof3FghV4tS",
+      "password": "$2a$10$8Ns50BuUrJk9KitOyrJGM.WXieqzHLH/uUMY6D3fUIu.oR.R4h0Aa",
       "login": "Oknokus",
       "categories": [
-        null,
         {
           "categoryName": "2",
-          "id": "23a97a6f-8b35-4131-859c-4150758b30be",
-          "color": "red",
-          "tasks": [
-            {
-              "taskTitle": "123",
-              "id": "fb58a516-a870-4ff2-ae0c-271cb6bc5771",
-              "isComplete": false
-            }
-          ]
+          "id": "0d30cd98-7b57-4a12-b15e-2ed2ebe699ce",
+          "color": "yellow",
+          "tasks": []
         }
       ],
       "id": 1
+    },
+    {
+      "email": "oknokus1@gmail.com",
+      "password": "$2a$10$xmylHWSDtLRtTEm4LR9PMeyqOoh3smS7aBer3tcse/vKAtJkDh5Zq",
+      "login": "Oknokus1",
+      "categories": [
+        {
+          "categoryName": "1",
+          "id": "3a428e89-5a05-43ee-b3f8-7337fb6836b3",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskTitle": "111",
+              "id": "94d3947e-c73f-458e-a0a1-b38264d4bf90",
+              "isComplete": false
+            },
+            {
+              "taskTitle": "112",
+              "id": "1022acf6-650d-46b2-9bd1-f00af3da91e7",
+              "isComplete": false
+            }
+          ]
+        },
+        {
+          "categoryName": "2",
+          "id": "7cf05f1b-3625-45e5-85f7-66e07c8e2232",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskTitle": "222",
+              "id": "ba693914-fee7-483f-8a3b-962a4b0b96c1",
+              "isComplete": false
+            },
+            {
+              "taskTitle": "223",
+              "id": "4fb8df14-ac72-4ce6-ba4d-a5fcd8afbc37",
+              "isComplete": false
+            }
+          ]
+        },
+        {
+          "categoryName": "3",
+          "id": "d4458f89-7942-404e-9e91-df8c718cd46a",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskTitle": "333",
+              "id": "fd051ae3-c27d-41e7-b50e-42ba0fe2db4b",
+              "isComplete": false
+            }
+          ]
+        },
+        {
+          "categoryName": "4",
+          "id": "df12c0f4-ef74-42e1-a559-5f8df4eb391c",
+          "color": "yellow",
+          "tasks": [
+            {
+              "taskTitle": "444",
+              "id": "643d5d76-0752-4f1f-9b3c-76bee9558b5e",
+              "isComplete": false
+            }
+          ]
+        },
+        {
+          "categoryName": "5",
+          "id": "83295bd0-e40e-4d94-ad48-c7a84aec34f2",
+          "color": "yellow",
+          "tasks": []
+        }
+      ],
+      "id": 2
     }
   ]
 }

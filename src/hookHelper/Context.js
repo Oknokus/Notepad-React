@@ -7,7 +7,8 @@ export const Context = (props) => {
     const [status, setStatus] = useState([]);
     const [taskName, setTaskName] = useState("");
     const [isComplete, setIsComplete] = useState(false);
-    const [show, setShow] = useState(false);
+    const [all, setAll] = useState(false);
+  
     
     const value = {        
         userState,
@@ -16,8 +17,8 @@ export const Context = (props) => {
         status, 
         setIsComplete,
         isComplete,
-        setShow,
-        show
+        all, 
+        setAll       
     };
 
     return <CustumContext.Provider value={value}>

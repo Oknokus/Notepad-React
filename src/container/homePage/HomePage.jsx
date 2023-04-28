@@ -17,7 +17,7 @@ const HomePage = () => {
     if(userState.length === 0) {
         return <Navigate to="/register"/>
     };
- 
+   
      return (  
         <>     
             <div className='homepage-container'>
@@ -27,10 +27,13 @@ const HomePage = () => {
                 <div>
                     {
                         status.length !== undefined ? (
-                            userState.categories.map((elem => 
-                                <AsideSectionContent  key={elem.categoryName} statusName={elem}/> ))) 
+                            userState.categories.map((elem) => { 
+                                if(!elem) {
+                                    return null
+                                }
+                               return <AsideSectionContent  key={elem.categoryName} statusName={elem}/>})) 
                                 : 
-                            <AsideSectionContent statusName={status}/>
+                            <AsideSectionContent statusName={status}/>                       
                     }   
                 </div> 
             </div>   

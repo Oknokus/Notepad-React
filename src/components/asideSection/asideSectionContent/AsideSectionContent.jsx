@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useContext, useEffect } from 'react';
+import { useContext, useState } from 'react';
 import { CustumContext } from '../../../hookHelper/Context';
 import {useForm} from 'react-hook-form';
 import {v4 as uuidv4} from 'uuid';
@@ -14,14 +14,15 @@ import './AsideSectionContent.scss';
 
 
 const AsideSectionContent = ({statusName}) => {
+    const[show, setShow] = useState(false);
+
        const {
         categoryName,
         id,
         tasks
        } = statusName;
-
-       const{show, setShow, status, userState, setUserState} = useContext(CustumContext);
-    
+   
+       const{status, setStatus, userState, setUserState, all} = useContext(CustumContext);   
        const {
         register,
         reset,
@@ -42,32 +43,38 @@ const AsideSectionContent = ({statusName}) => {
             let newCategory = userState.categories.map((elem) => {
                 if(elem.categoryName === statusName.categoryName) {                
                     return ({...elem, tasks: [...elem.tasks, newTask]})
-                } 
+                } else {
+                    return elem
+                }
             });    
-
             
         axios.patch(`http://localhost:8080/users/${userState.id}`, {            
                 categories: [                                      
                    ...newCategory,                             
                 ]})  
-            .then(({data}) => {
+            .then(({data}) => {                      
                 setUserState({
-                    ...data,
-                    newCategory                    
-                })
+                    ...data                                     
+                });
+                setStatus({
+                    ...status,
+                    tasks: [
+                    ...status.tasks,
+                    newTask]
+                });
 
+                localStorage.getItem("user", JSON.stringify({
+                    ...data                           
+                }))
 
                 reset();
                 setShow(false);
             
                
                 toast("Категория добавлена!!!")
-            }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))
-         
+            }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))         
     }
-
-         
-     
+             
     return ( 
         <div className='header-content'> 
             <ul 
@@ -92,7 +99,7 @@ const AsideSectionContent = ({statusName}) => {
                     }
                     
                     {
-                        show ? 
+                        show && 
                             (<label className='header-content__formAdd'>
                               
                               <span >{errors.taskTitle && errors.taskTitle.message}</span> 
@@ -114,7 +121,7 @@ const AsideSectionContent = ({statusName}) => {
                                         })} 
                                     className='header-content__input' type="text" placeholder='Текст задачи'/>
                                    
-                                    
+                                   
                                     <div>
                                         <button className='header-content__btnAdd'>Добавить задачу</button>
                                         <button 
@@ -123,16 +130,19 @@ const AsideSectionContent = ({statusName}) => {
                                     </div>
                                 </form>
                              </label>)
-                            :                            
-                            (<div className='header-content__button'>
+                            }
+                                                                                    
+                            {
+                                !all && !show &&  
+                                <div className='header-content__button'>
                                 <span 
                                     className='header-content__button_add'
                                     onClick={() => setShow(true)}>➕</span>
                                 <button 
                                     className='header-content__button_buttonAdd'
                                     onClick={() => setShow(true)}>Новая задача</button>
-                            </div>)
-                    }
+                            </div>
+                        }                    
             </ul>   
         </div>
     )
