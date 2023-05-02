@@ -15,15 +15,17 @@ import './AsideSectionContent.scss';
 
 const AsideSectionContent = ({statusName}) => {
     const[show, setShow] = useState(false);
-
+       
        const {
         categoryName,
         id,
         tasks
        } = statusName;
-   
-       const{status, setStatus, userState, setUserState, all} = useContext(CustumContext);   
-       const {
+ 
+      
+        const{status, setStatus, userState, setUserState, all, setIsComplete, isComplete} = useContext(CustumContext); 
+       
+        const {
         register,
         reset,
         handleSubmit,
@@ -31,8 +33,7 @@ const AsideSectionContent = ({statusName}) => {
                 errors
         }
     } = useForm({mode: "onblur"});
-
-
+  
         const addTasks = (data) => {
             let newTask = {
             ...data,
@@ -72,9 +73,48 @@ const AsideSectionContent = ({statusName}) => {
             
                
                 toast("Категория добавлена!!!")
-            }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))         
-    }
+            }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))              
+        }
+   
+        const deleteTask = (id) => {   
+            let newCategoriesArray = userState.categories.filter((elem) =>  
+                elem.categoryName === categoryName).map(el => el.tasks.filter(item => item.id !== id));
              
+                let newCategory = userState.categories.map((elem) => {
+                    if(elem.categoryName === categoryName) {                
+                        return ({...elem, tasks: newCategoriesArray})
+                    } else {
+                        return elem
+                    }
+                });    
+               
+                                                  
+            axios.patch(`http://localhost:8080/users/${userState.id}`, {categories: [
+                ...newCategory  
+            ]})
+                .then(({data}) => {
+                     setUserState({
+                            ...data                                     
+                        });
+                        setStatus({
+                            ...status,
+                            tasks: [
+                                newCategory
+                            ]
+                        });
+        
+                        localStorage.getItem("user", JSON.stringify({
+                            ...data                           
+                        }))
+        
+                        reset();
+                        setShow(false);                  
+                 
+                    toast("Категория удалена!!!")
+                })
+                .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
+            }    
+                                                
     return ( 
         <div className='header-content'> 
             <ul 
@@ -86,16 +126,21 @@ const AsideSectionContent = ({statusName}) => {
                     <span className='header-content__edit'>🖉</span>                    
                 </li> 
                     {
-                    tasks.length !== 0 ? 
-                    tasks.map((elem, index )=>
-                        <span 
-                            className='header-content__tasks'
-                            key={index}>
-                            <UiCheckBox isComplete={elem.isComplete} />
-                            {elem.taskTitle}
-                        </span>)
-                        :
+                    !tasks ?
                         ""
+                    :
+                    tasks.map((elem, index ) =>                     
+                         <span 
+                            className='header-content__tasks'
+                            key={index}>                
+                                {elem.taskTitle ? <UiCheckBox isComplete={isComplete} setIsComplete={setIsComplete}/> : ""}
+                                {elem.taskTitle}
+                                {elem.taskTitle ? <span 
+                                className='header-content__tasks_del'
+                                onClick={() => deleteTask(elem.id)}>✖️</span> :
+                                "" }
+                        </span>)                        
+                      
                     }
                     
                     {

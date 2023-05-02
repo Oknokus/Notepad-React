@@ -109,18 +109,19 @@ const AsideSection = () => {
 
             
             <ul className='aside-container__menu'> 
-                {   (userState.length === 0) ? (<Navigate to="/"/>) :
-                    userState.categories.map(elem => (               
-                        <li 
-                            key={elem.id}                            
-                            onClick={() => {setStatus(elem); setAll(false)}}
-                            className={elem && status === elem.categoryName ? 'active1' :'aside-container__menu__li'}>                       
-                        <span className='aside-container__menu__li__color' style={{background: elem.color}}></span>
-                        <span className='container-container__tasks'>{elem.categoryName}</span>
-                        <span 
-                            className='aside-container__menu__li__del'
-                            onClick={() => deleteCategory(elem.id)}>✖️</span>
-                        </li>  
+                {   
+                    (userState.length === 0) ? (<Navigate to="/"/>) :
+                        userState.categories.map(elem => (               
+                            <li 
+                                key={elem.id}                            
+                                onClick={() => {setStatus(elem); setAll(false)}}
+                                className={elem && status === elem.categoryName ? 'active1' :'aside-container__menu__li'}>                       
+                            <span className='aside-container__menu__li__color' style={{background: elem.color}}></span>
+                            <span className='container-container__tasks'>{elem.categoryName}</span>
+                            <span 
+                                className='aside-container__menu__li__del'
+                                onClick={() => deleteCategory(elem.id)}>✖️</span>
+                            </li>  
                     ))
                 }       
             </ul>           

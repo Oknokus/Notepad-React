@@ -9,13 +9,13 @@ import notChecked from "../uiCheckBox/imageCheckBox/notChecked.png"
 import './UiCheckBox.scss';
 
 
-const UiCheckBox = ({isComplete}) => { 
-    const {setIsComplete} = useContext(CustumContext)
-  
+const UiCheckBox = ({isComplete, setIsComplete, id}) => {   
+
     return (        
         <div 
             className='checkbox-container'
-            onClick={() => setIsComplete((prev) => !prev)}>
+            onClick={() => setIsComplete((prev) => !prev)}
+            key={id}>
             {!isComplete ? 
                 <img className='checkbox-container__img' src={notChecked} alt="notChecked" />            
             :

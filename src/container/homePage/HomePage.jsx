@@ -18,7 +18,7 @@ const HomePage = () => {
         return <Navigate to="/register"/>
     };
    
-     return (  
+    return (  
         <>     
             <div className='homepage-container'>
                 <AsideSection />            
