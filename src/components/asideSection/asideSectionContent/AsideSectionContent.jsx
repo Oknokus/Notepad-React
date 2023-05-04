@@ -42,7 +42,7 @@ const AsideSectionContent = ({statusName}) => {
        
         };       
             let newCategory = userState.categories.map((elem) => {
-                if(elem.categoryName === statusName.categoryName) {                
+                if(elem.categoryName === categoryName) {                
                     return ({...elem, tasks: [...elem.tasks, newTask]})
                 } else {
                     return elem
@@ -64,7 +64,7 @@ const AsideSectionContent = ({statusName}) => {
                     newTask]
                 });
 
-                localStorage.getItem("user", JSON.stringify({
+                localStorage.setItem("user", JSON.stringify({
                     ...data                           
                 }))
 
@@ -72,48 +72,63 @@ const AsideSectionContent = ({statusName}) => {
                 setShow(false);
             
                
-                toast("Категория добавлена!!!")
-            }).catch(err => toast(`Категория не добавлена!!!, ${err.message}`))              
+                toast("Задача добавлена!!!")
+            }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))              
         }
-   
-        const deleteTask = (id) => {   
-            let newCategoriesArray = userState.categories.filter((elem) =>  
-                elem.categoryName === categoryName).map(el => el.tasks.filter(item => item.id !== id));
-             
-                let newCategory = userState.categories.map((elem) => {
-                    if(elem.categoryName === categoryName) {                
-                        return ({...elem, tasks: newCategoriesArray})
-                    } else {
-                        return elem
-                    }
-                });    
-               
-                                                  
-            axios.patch(`http://localhost:8080/users/${userState.id}`, {categories: [
-                ...newCategory  
-            ]})
-                .then(({data}) => {
-                     setUserState({
-                            ...data                                     
-                        });
+        
+        const deleteTask = (id) => { 
+            let newCategory = userState.categories.map((elem) => {
+                if(elem.categoryName === categoryName) {                
+                    return ({...elem, tasks: elem.tasks.filter(el => el.id !== id)})
+                } else {
+                    return elem
+                }
+            });   
+                              
+                        
+            axios.patch(`http://localhost:8080/users/${userState.id}`, {
+                categories: [
+                    ...newCategory
+                ] 
+                 
+            })
+                .then(({data}) => {                                      
+                        setUserState({
+                            ...data
+                        });  
                         setStatus({
-                            ...status,
+                            ...status,                                                        
+                            tasks: [  
+                                ...(status.tasks.filter(el => el.id !== id))
+                            ]
+                        })
+                      
+                       
+                        localStorage.setItem("user", JSON.stringify({
+                            ...data,
                             tasks: [
                                 newCategory
-                            ]
-                        });
-        
-                        localStorage.getItem("user", JSON.stringify({
-                            ...data                           
+                            ]                
                         }))
         
                         reset();
                         setShow(false);                  
                  
-                    toast("Категория удалена!!!")
+                    toast("Задача удалена!!!")
                 })
-                .catch(err => toast(`Категория не удалена!!!, ${err.message}`))
+                .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
             }    
+
+            const hendleComplete = (id) => {
+                let newCategory = userState.categories.map((elem) => {
+                    if(elem.categoryName === categoryName) {                
+                        return ({...elem, tasks: elem.tasks.map(el => el.id === id ?{...elem, isComplete: !el.isComplete}: el)})
+                    } else {
+                        return elem
+                    }
+                });   
+                              
+            }
                                                 
     return ( 
         <div className='header-content'> 
@@ -133,9 +148,9 @@ const AsideSectionContent = ({statusName}) => {
                          <span 
                             className='header-content__tasks'
                             key={index}>                
-                                {elem.taskTitle ? <UiCheckBox isComplete={isComplete} setIsComplete={setIsComplete}/> : ""}
+                                {elem.taskTitle && status.length === undefined  ? <UiCheckBox isComplete={isComplete} hendleComplete={hendleComplete} id={elem.id} setIsComplete={setIsComplete}/> : ""}
                                 {elem.taskTitle}
-                                {elem.taskTitle ? <span 
+                                {elem.taskTitle && status.length === undefined ? <span 
                                 className='header-content__tasks_del'
                                 onClick={() => deleteTask(elem.id)}>✖️</span> :
                                 "" }

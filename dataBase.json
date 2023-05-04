@@ -6,45 +6,16 @@
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "1",
-          "id": "81da565b-3999-4afa-a779-449d14fb6305",
+          "categoryName": "456456",
+          "id": "7802f367-807a-4627-9749-e1f929ddbd44",
           "color": "yellow",
-          "tasks": [
-            [
-              [
-                [
-                  [
-                    [
-                      [
-                        [
-                          [
-                            [
-                              [
-                                [
-                                  [
-                                    [
-                                      [
-                                        []
-                                      ]
-                                    ]
-                                  ]
-                                ]
-                              ]
-                            ]
-                          ]
-                        ]
-                      ]
-                    ]
-                  ]
-                ]
-              ],
-              {
-                "taskTitle": "12345",
-                "id": "cef8b8b0-d849-48c9-b04b-7312cffcb4d2",
-                "isComplete": false
-              }
-            ]
-          ]
+          "tasks": []
+        },
+        {
+          "categoryName": "ghghjgj",
+          "id": "7fc4982c-164c-4624-bced-76a2cfc5e260",
+          "color": "red",
+          "tasks": []
         }
       ],
       "id": 1

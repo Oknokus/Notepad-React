@@ -9,18 +9,21 @@ import notChecked from "../uiCheckBox/imageCheckBox/notChecked.png"
 import './UiCheckBox.scss';
 
 
-const UiCheckBox = ({isComplete, setIsComplete, id}) => {   
+const UiCheckBox = ({isComplete, hendleComplete, id}) => {   
 
     return (        
-        <div 
-            className='checkbox-container'
-            onClick={() => setIsComplete((prev) => !prev)}
-            key={id}>
-            {!isComplete ? 
-                <img className='checkbox-container__img' src={notChecked} alt="notChecked" />            
-            :
-            <img className='checkbox-container__img' src={checked} alt="checked" />
-        }
+        <div className='checkbox-container'>
+            <ul key={id}>
+                <li 
+                onClick={() =>hendleComplete(id)}>
+                    {!isComplete ? 
+                            <img className='checkbox-container__img' src={notChecked} alt="notChecked" />            
+                        :
+                        <img className='checkbox-container__img' src={checked} alt="checked" />
+                    }
+                    </li>
+                </ul>
+           
         </div>
     )
 }
