@@ -69,3 +69,12 @@
         margin-top: var(--size-small-medium);
     }
 }
+
+.checkbox-container{
+   
+    &__img{
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+    }
+}

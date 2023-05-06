@@ -8,7 +8,8 @@ export const Context = (props) => {
     const [taskName, setTaskName] = useState("");
     const [isComplete, setIsComplete] = useState(false);
     const [all, setAll] = useState(false);
-  
+    const [stateChecBox, setStateChecBox] = useState(false);
+    const [taskId, setTaskId] = useState(false);
     
     const value = {        
         userState,
@@ -18,7 +19,11 @@ export const Context = (props) => {
         setIsComplete,
         isComplete,
         all, 
-        setAll       
+        setAll,
+        setStateChecBox,
+        stateChecBox,
+        setTaskId,
+        taskId
     };
 
     return <CustumContext.Provider value={value}>

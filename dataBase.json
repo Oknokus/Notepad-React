@@ -2,20 +2,30 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$vKVjgU2PjqMkqAmlvmVTwuc.U9i/ndRchUdMKQaHg0V5dG41ed1S.",
+      "password": "$2a$10$DExnVYsAD2NcQHrS.3/LQ.hgCd585hVfJnbOX/MrzmbrGgc6bcyA2",
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "456456",
-          "id": "7802f367-807a-4627-9749-e1f929ddbd44",
+          "categoryName": "1",
+          "id": "f4d7df8e-782c-4754-ad7a-c172914a4deb",
           "color": "yellow",
-          "tasks": []
-        },
-        {
-          "categoryName": "ghghjgj",
-          "id": "7fc4982c-164c-4624-bced-76a2cfc5e260",
-          "color": "red",
-          "tasks": []
+          "tasks": [
+            {
+              "taskTitle": "111",
+              "id": "c5c2e534-bc08-42e6-9e13-3254e48f518d",
+              "isComplete": true
+            },
+            {
+              "taskTitle": "112",
+              "id": "afba8c46-420f-47d0-ba9b-177cd03984a4",
+              "isComplete": false
+            },
+            {
+              "taskTitle": "111",
+              "id": "b7285315-af07-4d74-8365-831f061c31f8",
+              "isComplete": true
+            }
+          ]
         }
       ],
       "id": 1
