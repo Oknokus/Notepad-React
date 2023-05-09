@@ -2,36 +2,23 @@
   "users": [
     {
       "email": "oknokus@gmail.com",
-      "password": "$2a$10$iv7EJrpmxJIsNL8Bu8Gs1eXyDTGirXm5mqjBSdtWNHe9.sjoopCOe",
+      "password": "$2a$10$FJGm64rdHAsFSlhpy00nUeEcZyBmkW1QCLJGha4sdOKQTrdUIhnLS",
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "1",
-          "id": "07061a15-17a4-400d-9993-f72b523c049b",
-          "color": "red",
+          "categoryName": "22",
+          "id": "cd5d9d03-ab5a-4574-a27f-54827ae634c0",
+          "color": "yellow",
           "tasks": []
         },
         {
-          "categoryName": "4",
-          "id": "12b53892-e836-4c8c-9ea5-f8cbb77f798f",
-          "color": "red",
-          "tasks": [
-            {
-              "taskTitle": "444",
-              "id": "65dd2c0e-f7ef-449e-962c-116a404a4feb",
-              "isComplete": false
-            }
-          ]
+          "categoryName": "333",
+          "id": "114febf9-9afe-408f-bb80-d092ba883e55",
+          "color": "yellow",
+          "tasks": []
         }
       ],
       "id": 1
-    },
-    {
-      "email": "oknokus1@gmail.com",
-      "password": "$2a$10$uP5aOqxpZbkC.u.cfQUr8eUC2KTF3/oiZBswBd2DWSA08474b2Giq",
-      "login": "Oknokus1",
-      "categories": [],
-      "id": 2
     }
   ]
 }

@@ -8,11 +8,14 @@ export const CustumContext = createContext();
 export const Context = (props) => {   
     const [userState, setUserState] = useState([]);
     const [status, setStatus] = useState([]);
-    const [taskName, setTaskName] = useState("");
     const [isComplete, setIsComplete] = useState(false);
     const [all, setAll] = useState(false);
     const [stateChecBox, setStateChecBox] = useState(false);
     const [taskId, setTaskId] = useState(false);
+    const [categoryState, setCategoryState] = useState("");
+    const [category, setCategory] = useState();
+    const[show, setShow] = useState(false);
+    const[valueInputCategory, setValueInputCategory] = useState('');  
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -73,7 +76,15 @@ export const Context = (props) => {
         taskId,
         registerUser,
         loginUser,
-        onSubmit
+        onSubmit,
+        setCategoryState,
+        categoryState,
+        category,
+        setCategory,       
+        show,
+        setShow,
+        valueInputCategory,
+        setValueInputCategory
     };
 
     return <CustumContext.Provider value={value}>

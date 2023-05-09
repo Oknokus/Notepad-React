@@ -23,22 +23,21 @@ const HomePage = () => {
             <div className='homepage-container'>
                 <AsideSection />            
                 <ToastContainer/>
-                
+
                 <div>
                     {
                         status.length !== undefined ? (
                             userState.categories.map((elem) => { 
                                 if(!elem) {
                                     return null
-                                }
-                               return <AsideSectionContent  key={elem.categoryName} statusName={elem}/>})) 
-                                : 
-                            <AsideSectionContent statusName={status}/>                       
+                                } return <AsideSectionContent  key={elem.categoryName} statusName={elem}/>})) 
+                                    : 
+                                <AsideSectionContent statusName={status}/>                       
                     }   
                 </div> 
             </div>   
         </> 
-        )
+    )
 };
 
 

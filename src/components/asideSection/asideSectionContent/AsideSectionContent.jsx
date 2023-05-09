@@ -3,24 +3,21 @@ import { useContext, useState } from 'react';
 import { CustumContext } from '../../../hookHelper/Context';
 import {useForm} from 'react-hook-form';
 import {v4 as uuidv4} from 'uuid';
-import axios, { isCancel } from 'axios';
+import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import checked from "../../uiCheckBox/imageCheckBox/checked.png"
-import notChecked from "../../uiCheckBox/imageCheckBox/notChecked.png"
-
-import {addTasks} from "../../../function/function";
+import AsideSectionContentCategryName from "./asideSectionContentCategryName";
+import AsideSectionContentCheckBox from "./asideSectionContentCheckBox";
+import AsideSectionContentCreateTask from "./asideSectionContentCreateTask";
 
 
 import './AsideSectionContent.scss';
 
 
-const AsideSectionContent = ({statusName}) => {
-    const[show, setShow] = useState(false);  
-    const[showEdit, setShowEdit] = useState(false); 
-    const[valueInputCategory, setValueInputCategory] = useState(''); 
-         
+const AsideSectionContent = ({statusName}) => { 
+    const [showEdit, setShowEdit] = useState(false); 
+
        const {
         categoryName,
         id,
@@ -34,9 +31,10 @@ const AsideSectionContent = ({statusName}) => {
             setUserState,
             setStateChecBox,
             stateChecBox,
-            all,
-            setTaskId,
-            taskId
+            all,            
+            setShow,
+            show,
+            valueInputCategory
         } = useContext(CustumContext); 
        
         const {
@@ -87,7 +85,7 @@ const AsideSectionContent = ({statusName}) => {
                
                 toast("Задача добавлена!!!")
             }).catch(err => toast(`Задача не добавлена!!!, ${err.message}`))              
-        }
+        };
         
         const deleteTask = (id) => { 
             let newCategory = userState.categories.map((elem) => {
@@ -126,11 +124,11 @@ const AsideSectionContent = ({statusName}) => {
                     toast("Задача удалена!!!")
                 })
                 .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
-        }   
+        };
                          
-            const hendleComplete = (id) => {                             
+        const handleComplete = (id) => {                             
                 const taskId = userState.categories.filter(elem => elem.categoryName === categoryName)
-                    .map(el => el.tasks.filter(item => item.id == id)
+                    .map(el => el.tasks.filter(item => item.id === id)
                     .map(init => init.isComplete = stateChecBox));
 
 
@@ -182,7 +180,7 @@ const AsideSectionContent = ({statusName}) => {
                     ]                            
                 })) 
             })           
-        }         
+        };      
        
         const changeNameCategory = (id) => {           
             let newCategoryName = userState.categories.map((elem) => {                
@@ -190,9 +188,7 @@ const AsideSectionContent = ({statusName}) => {
                     return ({...elem, categoryName: valueInputCategory})
                 } else {
                     return {...elem,  categoryName: elem.categoryName}
-                }}
-                )
-               
+                }})               
                 axios.patch(`http://localhost:8080/users/${userState.id}`, {
                     categories: 
                         newCategoryName 
@@ -224,137 +220,32 @@ const AsideSectionContent = ({statusName}) => {
                 toast("Категория изменена!!!")
             })
             .catch(err => toast(`Категория  не изменена!!!, ${err.message}`))
-    }            
+    } 
+    
+    
     return ( 
         <div className='header-content'>           
             <ul             
                 className='header-content__ul'> 
-                {!tasks ?
-                        ""
-                    :
-                    <li 
-                        className='header-content__title'
-                        key={id}>
-                            {categoryName}
-                        <span  
-                            className='header-content__edit'
-                            onClick={() => setShowEdit(true)}>{status.length !== undefined ? "🖉" : ""}    
-                        </span>
-                        {
-                        showEdit && 
-                            (<label className='header-content__formAdd'>
-                              
-                              <span className='header-content__formAdd__errors'>{errors.categoryTitle && errors.categoryTitle.message}</span> 
-                                <form noValidate onSubmit={handleSubmit(changeNameCategory)}>  
-                                                                 
-                                    <input {...register("categoryTitle", {
-                                        required : {
-                                            message: "Заполните название Категории!!!",
-                                            value: true
-                                        },
-                                        maxLength : {
-                                            message: "Максимальное число символов 20",
-                                            value: 20 
-                                        }, 
-                                        minLength : {
-                                            message: "Минимальное число символов 1",
-                                            value: 1
-                                        }
-                                        })} 
-                                    className='header-content__input'
-                                    onChange={e => setValueInputCategory(e.target.value)}
-                                    type="text" 
-                                    placeholder='Название задачи'/>
-                                   
-                                   
-                                    <div>
-                                        <button className='header-content__btnAdd'>Редактировать Категорию</button>
-                                        <button 
-                                            className='header-content__close'
-                                            onClick={() => setShowEdit(false)}>Отмена</button>
-                                    </div>
-                                </form>
-                             </label>)
-                            }
-                    </li>
-                    }              
                     {
-                    !tasks ?
-                        ""
-                    :
-                    tasks.map((elem, index) =>
-                         <span 
-                            className='header-content__tasks'
-                            key={index}>                
-                                {
-                                    elem.taskTitle && status.length === undefined ? 
-                                        <div 
-                                            className='checkbox-container'
-                                           >
-                                            <ul>                
-                                                <li 
-                                                    onClick={() => {hendleComplete(elem.id); setStateChecBox(prev => !prev)}}
-                                                    key={index}>
-                                                    {
-                                                        elem.isComplete === false ?
-                                                            <img className='checkbox-container__img' src={notChecked} alt="notChecked" />            
-                                                        :
-                                                        <img className='checkbox-container__img' src={checked} alt="checked" />                                                     
-                                                    }
-                                                </li>
-                                            </ul>           
-                                        </div>
-                                        : 
-                                        ""
-                                        }                                
+                        !tasks ? ""
+                        :
+                        <AsideSectionContentCategryName id={id} categoryName={categoryName} 
+                            changeNameCategory={changeNameCategory} showEdit={showEdit} setShowEdit={setShowEdit} />                    
+                    } 
 
-                                <p>{elem.taskTitle}</p>
-                                {
-                                elem.taskTitle && status.length === undefined ? 
-                                    <span 
-                                    className='header-content__tasks_del'
-                                    onClick={() => deleteTask(elem.id)}>✖️</span> 
-                                    :
-                                    "" 
-                                }
-                        </span>)
+                    {
+                        !tasks ? ""
+                        :
+                        <AsideSectionContentCheckBox handleComplete={handleComplete} deleteTask={deleteTask} tasks={tasks} />                        
                     }
                     
                     {
                         show && 
-                            (<label className='header-content__formAdd'>
-                              
-                              <span >{errors.taskTitle && errors.taskTitle.message}</span> 
-                                <form noValidate onSubmit={handleSubmit(addTasks)}>  
-                                                                 
-                                    <input {...register("taskTitle", {
-                                        required : {
-                                            message: "Заполните название задачи!!!",
-                                            value: true
-                                        },
-                                        maxLength : {
-                                            message: "Максимальное число символов 30",
-                                            value: 30 
-                                        }, 
-                                        minLength : {
-                                            message: "Минимальное число символов 3",
-                                            value: 3
-                                        }
-                                        })} 
-                                    className='header-content__input' type="text" placeholder='Текст задачи'/>
-                                   
-                                   
-                                    <div>
-                                        <button className='header-content__btnAdd'>Добавить задачу</button>
-                                        <button 
-                                            className='header-content__close'
-                                            onClick={() => setShow(false)}>Отмена</button>
-                                    </div>
-                                </form>
-                             </label>)
-                            }
+                        <AsideSectionContentCreateTask addTasks={addTasks} />                           
+                    }
                                                                                     
-                            {
+                    {
                                 !all && !show &&  
                                 <div className='header-content__button'>
                                 <span 
@@ -364,7 +255,7 @@ const AsideSectionContent = ({statusName}) => {
                                     className='header-content__button_buttonAdd'
                                     onClick={() => setShow(true)}>Новая задача</button>
                             </div>
-                        }                    
+                    }                    
             </ul>   
         </div>
     )
