@@ -10,6 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import checked from "../../uiCheckBox/imageCheckBox/checked.png"
 import notChecked from "../../uiCheckBox/imageCheckBox/notChecked.png"
 
+import {addTasks} from "../../../function/function";
+
 
 import './AsideSectionContent.scss';
 
@@ -18,9 +20,7 @@ const AsideSectionContent = ({statusName}) => {
     const[show, setShow] = useState(false);  
     const[showEdit, setShowEdit] = useState(false); 
     const[valueInputCategory, setValueInputCategory] = useState(''); 
-
-   
-       
+         
        const {
         categoryName,
         id,
@@ -128,8 +128,7 @@ const AsideSectionContent = ({statusName}) => {
                 .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
         }   
                          
-            const hendleComplete = (id) => {
-                             
+            const hendleComplete = (id) => {                             
                 const taskId = userState.categories.filter(elem => elem.categoryName === categoryName)
                     .map(el => el.tasks.filter(item => item.id == id)
                     .map(init => init.isComplete = stateChecBox));
@@ -151,7 +150,7 @@ const AsideSectionContent = ({statusName}) => {
                 setUserState({
                     ...data,                                                        
                     tasks: [
-                        ...userState.tasks.map(el => {
+                            userState.tasks.map(el => {
                            if(el.id === id) {
                             return {...el, isComplete: !el.isComplete}                                                             
                             }                    
@@ -181,15 +180,11 @@ const AsideSectionContent = ({statusName}) => {
                             else  {return {...el}}
                         }) 
                     ]                            
-                }))  
-
-                 
-            
+                })) 
             })           
         }         
        
-        const changeNameCategory = (id) => {       
-            
+        const changeNameCategory = (id) => {           
             let newCategoryName = userState.categories.map((elem) => {                
                 if(elem.categoryName === categoryName) {                
                     return ({...elem, categoryName: valueInputCategory})
@@ -197,28 +192,30 @@ const AsideSectionContent = ({statusName}) => {
                     return {...elem,  categoryName: elem.categoryName}
                 }}
                 )
-                
+               
                 axios.patch(`http://localhost:8080/users/${userState.id}`, {
-                    categories: [
-                        newCategoryName
-                    ]
-                })  .then(({data}) => {
+                    categories: 
+                        newCategoryName 
+                })  .then(({data}) => {    
+                                           
                     setUserState({
-                        ...data
+                        ...data,
+                        categories: 
+                            newCategoryName
                     });  
-                    setStatus({
-                        ...status,                                                        
-                        categoryName: [  
-                            ...status.categoryName.filter(elem => {
-                                if(elem === categoryName) {
-                                    return{...elem,   categoryName:  valueInputCategory}
-                                }
-                            })
-                          
-                        ]
-                    })                       
+                        // setStatus({                                                                                   
+                        //     ...statusName,
+                        //     categoryName: 
+                        //         newCategoryName.categories.map(elem => {
+                        //             if(elem.id !== id) {
+                        //                 return  
+                        //             }  return  elem.categoryName
+                        //         })                                   
+                        // })                       
                     localStorage.setItem("user", JSON.stringify({
-                        ...data        
+                        ...data,
+                        categories: 
+                            newCategoryName       
                     }))
     
                     reset();
@@ -227,8 +224,7 @@ const AsideSectionContent = ({statusName}) => {
                 toast("Категория изменена!!!")
             })
             .catch(err => toast(`Категория  не изменена!!!, ${err.message}`))
-    }
-               
+    }            
     return ( 
         <div className='header-content'>           
             <ul             
@@ -242,7 +238,7 @@ const AsideSectionContent = ({statusName}) => {
                             {categoryName}
                         <span  
                             className='header-content__edit'
-                            onClick={() => setShowEdit(true)}>🖉
+                            onClick={() => setShowEdit(true)}>{status.length !== undefined ? "🖉" : ""}    
                         </span>
                         {
                         showEdit && 
@@ -257,12 +253,12 @@ const AsideSectionContent = ({statusName}) => {
                                             value: true
                                         },
                                         maxLength : {
-                                            message: "Максимальное число символов 10",
-                                            value: 10 
+                                            message: "Максимальное число символов 20",
+                                            value: 20 
                                         }, 
                                         minLength : {
-                                            message: "Минимальное число символов 3",
-                                            value: 3
+                                            message: "Минимальное число символов 1",
+                                            value: 1
                                         }
                                         })} 
                                     className='header-content__input'
@@ -272,7 +268,7 @@ const AsideSectionContent = ({statusName}) => {
                                    
                                    
                                     <div>
-                                        <button className='header-content__btnAdd'>Редактировать задачу</button>
+                                        <button className='header-content__btnAdd'>Редактировать Категорию</button>
                                         <button 
                                             className='header-content__close'
                                             onClick={() => setShowEdit(false)}>Отмена</button>
@@ -337,8 +333,8 @@ const AsideSectionContent = ({statusName}) => {
                                             value: true
                                         },
                                         maxLength : {
-                                            message: "Максимальное число символов 10",
-                                            value: 10 
+                                            message: "Максимальное число символов 30",
+                                            value: 30 
                                         }, 
                                         minLength : {
                                             message: "Минимальное число символов 3",

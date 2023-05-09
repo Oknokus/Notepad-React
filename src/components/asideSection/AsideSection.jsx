@@ -104,7 +104,7 @@ const AsideSection = () => {
             <div className={status.length !== undefined ? 'active' : 'aside-container__main'}>               
                 <span 
                     className='container-container__tasksAll'
-                    onClick={() => {setStatus(userState.categories.map(elem => elem)); setAll(true)}}>📝Все задачи</span>
+                    onClick={() => {setStatus(userState.categories.map(elem => elem)); setAll(true)}}>📝Все категории</span>
             </div>
 
             
