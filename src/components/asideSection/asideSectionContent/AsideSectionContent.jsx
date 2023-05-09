@@ -3,11 +3,9 @@ import { useContext, useState } from 'react';
 import { CustumContext } from '../../../hookHelper/Context';
 import {useForm} from 'react-hook-form';
 import {v4 as uuidv4} from 'uuid';
-import axios from 'axios';
+import axios, { isCancel } from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import UiCheckBox from '../../uiCheckBox/UiCheckBox';
 
 import checked from "../../uiCheckBox/imageCheckBox/checked.png"
 import notChecked from "../../uiCheckBox/imageCheckBox/notChecked.png"
@@ -18,14 +16,17 @@ import './AsideSectionContent.scss';
 
 const AsideSectionContent = ({statusName}) => {
     const[show, setShow] = useState(false);  
+    const[showEdit, setShowEdit] = useState(false); 
+    const[valueInputCategory, setValueInputCategory] = useState(''); 
+
+   
        
        const {
         categoryName,
         id,
         tasks
        } = statusName;
- 
-      
+
         const{
             status,
             setStatus,
@@ -95,13 +96,12 @@ const AsideSectionContent = ({statusName}) => {
                 } else {
                     return elem
                 }
-            });                                 
+            });                                                  
                         
             axios.patch(`http://localhost:8080/users/${userState.id}`, {
                 categories: [
                     ...newCategory
-                ] 
-                 
+                ]                 
             })
                 .then(({data}) => {                                      
                         setUserState({
@@ -126,9 +126,10 @@ const AsideSectionContent = ({statusName}) => {
                     toast("Задача удалена!!!")
                 })
                 .catch(err => toast(`Задача не удалена!!!, ${err.message}`))
-            }    
-
-            const hendleComplete = (id) => {                  
+        }   
+                         
+            const hendleComplete = (id) => {
+                             
                 const taskId = userState.categories.filter(elem => elem.categoryName === categoryName)
                     .map(el => el.tasks.filter(item => item.id == id)
                     .map(init => init.isComplete = stateChecBox));
@@ -140,48 +141,147 @@ const AsideSectionContent = ({statusName}) => {
                     } else {
                         return elem
                     }
-                }
-                )  
-
-                
+                })  
+                               
                 axios.patch(`http://localhost:8080/users/${userState.id}`, {            
                 categories: [                                      
                    ...newCategory,                             
                 ]})  
                 .then(({data}) => {                                     
                 setUserState({
-                    ...data                                     
-                });
+                    ...data,                                                        
+                    tasks: [
+                        ...userState.tasks.map(el => {
+                           if(el.id === id) {
+                            return {...el, isComplete: !el.isComplete}                                                             
+                            }                    
+                            else  {return {...el, isComplete: el.isComplete}}
+                        })  
+                    ]                                   
+                })                
                 setStatus({
-                    ...status,  
-                    categories:[  
-                        data
-                ]
-                    
-                
-                    // ...status,
-                    // tasks: [
-                    //     status.tasks                      
-                    // ],
-                    // isComplete: taskId                           
-                });
+                    ...status,                                                        
+                    tasks: [
+                        ...status.tasks.map(el => {
+                           if(el.id === id) {
+                            return {...el, isComplete: !el.isComplete}                                                             
+                            }                    
+                            else  {return {...el, isComplete: el.isComplete}}
+                        }) 
+                    ] 
+                })             
                
                 localStorage.setItem("user", JSON.stringify({
-                    ...data                            
+                    ...status,                                                        
+                    tasks: [
+                        ...status.tasks.map(el => {
+                           if(el.id === id) {
+                            return {...el, isComplete: !el.isComplete}                                                             
+                            }                    
+                            else  {return {...el}}
+                        }) 
+                    ]                            
                 }))  
-            })                  
-        }                   
-                                                
+
+                 
+            
+            })           
+        }         
+       
+        const changeNameCategory = (id) => {       
+            
+            let newCategoryName = userState.categories.map((elem) => {                
+                if(elem.categoryName === categoryName) {                
+                    return ({...elem, categoryName: valueInputCategory})
+                } else {
+                    return {...elem,  categoryName: elem.categoryName}
+                }}
+                )
+                
+                axios.patch(`http://localhost:8080/users/${userState.id}`, {
+                    categories: [
+                        newCategoryName
+                    ]
+                })  .then(({data}) => {
+                    setUserState({
+                        ...data
+                    });  
+                    setStatus({
+                        ...status,                                                        
+                        categoryName: [  
+                            ...status.categoryName.filter(elem => {
+                                if(elem === categoryName) {
+                                    return{...elem,   categoryName:  valueInputCategory}
+                                }
+                            })
+                          
+                        ]
+                    })                       
+                    localStorage.setItem("user", JSON.stringify({
+                        ...data        
+                    }))
+    
+                    reset();
+                    setShowEdit(false);                  
+             
+                toast("Категория изменена!!!")
+            })
+            .catch(err => toast(`Категория  не изменена!!!, ${err.message}`))
+    }
+               
     return ( 
-        <div className='header-content'> 
-            <ul 
-                className='header-content__ul'
-                key={id}>                
-                <li 
-                    className='header-content__title'>
-                    {categoryName}
-                    <span className='header-content__edit'>🖉</span>                    
-                </li> 
+        <div className='header-content'>           
+            <ul             
+                className='header-content__ul'> 
+                {!tasks ?
+                        ""
+                    :
+                    <li 
+                        className='header-content__title'
+                        key={id}>
+                            {categoryName}
+                        <span  
+                            className='header-content__edit'
+                            onClick={() => setShowEdit(true)}>🖉
+                        </span>
+                        {
+                        showEdit && 
+                            (<label className='header-content__formAdd'>
+                              
+                              <span className='header-content__formAdd__errors'>{errors.categoryTitle && errors.categoryTitle.message}</span> 
+                                <form noValidate onSubmit={handleSubmit(changeNameCategory)}>  
+                                                                 
+                                    <input {...register("categoryTitle", {
+                                        required : {
+                                            message: "Заполните название Категории!!!",
+                                            value: true
+                                        },
+                                        maxLength : {
+                                            message: "Максимальное число символов 10",
+                                            value: 10 
+                                        }, 
+                                        minLength : {
+                                            message: "Минимальное число символов 3",
+                                            value: 3
+                                        }
+                                        })} 
+                                    className='header-content__input'
+                                    onChange={e => setValueInputCategory(e.target.value)}
+                                    type="text" 
+                                    placeholder='Название задачи'/>
+                                   
+                                   
+                                    <div>
+                                        <button className='header-content__btnAdd'>Редактировать задачу</button>
+                                        <button 
+                                            className='header-content__close'
+                                            onClick={() => setShowEdit(false)}>Отмена</button>
+                                    </div>
+                                </form>
+                             </label>)
+                            }
+                    </li>
+                    }              
                     {
                     !tasks ?
                         ""
@@ -191,7 +291,7 @@ const AsideSectionContent = ({statusName}) => {
                             className='header-content__tasks'
                             key={index}>                
                                 {
-                                    elem.taskTitle ? 
+                                    elem.taskTitle && status.length === undefined ? 
                                         <div 
                                             className='checkbox-container'
                                            >

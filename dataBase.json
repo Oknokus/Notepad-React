@@ -1,34 +1,49 @@
 {
   "users": [
     {
-      "email": "oknokus@gmail.com",
-      "password": "$2a$10$DExnVYsAD2NcQHrS.3/LQ.hgCd585hVfJnbOX/MrzmbrGgc6bcyA2",
-      "login": "Oknokus",
+      "email": "oknokus3@gmail.com",
+      "password": "$2a$10$yeDpo.v7q66z8zL.Gl2xauxUJD80sFp245wc4isa1/KRtJ5eG08wC",
+      "login": "Oknokus3",
+      "categories": [],
+      "id": 3,
+      "catagories": []
+    },
+    {
+      "email": "oknokus4@gmail.com",
+      "password": "$2a$10$fzvj9lahYnBUVjYEQzGi2umGS3.D0r/.mAzpvbgkbnIqo98I5djne",
+      "login": "Oknokus4",
       "categories": [
         {
           "categoryName": "1",
-          "id": "f4d7df8e-782c-4754-ad7a-c172914a4deb",
+          "id": "d96a3224-7eaa-41ad-bb09-f65c086a91aa",
           "color": "yellow",
           "tasks": [
             {
-              "taskTitle": "111",
-              "id": "c5c2e534-bc08-42e6-9e13-3254e48f518d",
-              "isComplete": true
-            },
-            {
               "taskTitle": "112",
-              "id": "afba8c46-420f-47d0-ba9b-177cd03984a4",
-              "isComplete": false
+              "id": "40d5bd96-a348-42c6-8372-ca95db167f51",
+              "isComplete": true
             },
             {
-              "taskTitle": "111",
-              "id": "b7285315-af07-4d74-8365-831f061c31f8",
-              "isComplete": true
+              "taskTitle": "113",
+              "id": "f5d7508e-9fac-4e76-b240-dff7c8895d1b",
+              "isComplete": false
             }
           ]
+        },
+        {
+          "categoryName": "2",
+          "id": "f85403b4-b397-4be8-9d74-031db270829e",
+          "color": "yellow",
+          "tasks": []
+        },
+        {
+          "categoryName": "3",
+          "id": "b1f321fd-13db-46f0-8cd5-05dde567749e",
+          "color": "yellow",
+          "tasks": []
         }
       ],
-      "id": 1
+      "id": 4
     }
   ]
 }
