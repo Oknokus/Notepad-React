@@ -6,7 +6,7 @@
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "3",
+          "categoryName": "1",
           "id": "07061a15-17a4-400d-9993-f72b523c049b",
           "color": "red",
           "tasks": []
@@ -15,7 +15,13 @@
           "categoryName": "4",
           "id": "12b53892-e836-4c8c-9ea5-f8cbb77f798f",
           "color": "red",
-          "tasks": []
+          "tasks": [
+            {
+              "taskTitle": "444",
+              "id": "65dd2c0e-f7ef-449e-962c-116a404a4feb",
+              "isComplete": false
+            }
+          ]
         }
       ],
       "id": 1

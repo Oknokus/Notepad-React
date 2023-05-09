@@ -11,8 +11,13 @@ import './FormRegister.scss';
 
 
 const FormRegister = () => {
-    const {setUserState} = useContext(CustumContext);
-    const navigate = useNavigate();
+    const {
+        setUserState,
+        registerUser,
+        loginUser,
+        onSubmit
+    } = useContext(CustumContext);
+    
     const location = useLocation();
    
     const {
@@ -22,53 +27,9 @@ const FormRegister = () => {
             formState: {
                 errors
         }
-    } = useForm({mode: "onblur"})
-
-    const registerUser = (data) => { 
-        axios.post("http://localhost:8080/register", {
-                ...data, 
-                categories: []
-        }).then(res => {                  
-            setUserState({
-                    token: res.data.accessToken,
-                    ...res.data.user
-                })  
-
-            localStorage.setItem("user", JSON.stringify({
-                token: res.data.accessToken,
-                ...res.data.user
-            }))   
-            reset();
-            navigate("/");                       
-        })
-        .catch(err => console.log(err))                     
-    }
-    
-    const loginUser = (data) => {        
-            axios.post("http://localhost:8080/login", {
-                ...data
-            })
-                .then(res => {
-                    setUserState({
-                        token: res.data.accessToken,
-                        ...res.data.user
-                    })  
-                    localStorage.setItem("user", JSON.stringify({
-                        token: res.data.accessToken,
-                        ...res.data.user
-                    }))  
-                    reset();
-                    navigate("/");
-                })
-                .catch(err => console.log(err))
-    }  
-        
-
-    const onSubmit = (data) => {
-        location.pathname === "/register" ?  registerUser(data) : loginUser(data)
-    }
-  
-
+    } = useForm({mode: "onblur"}
+    )
+       
     return (
         <>
             <div className="register-container">

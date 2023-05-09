@@ -1,4 +1,7 @@
 import {createContext, useState} from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import axios from 'axios';
 
 export const CustumContext = createContext();
 
@@ -10,6 +13,50 @@ export const Context = (props) => {
     const [all, setAll] = useState(false);
     const [stateChecBox, setStateChecBox] = useState(false);
     const [taskId, setTaskId] = useState(false);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+
+    const registerUser = (data) => { 
+        axios.post("http://localhost:8080/register", {
+                ...data, 
+                categories: []
+        }).then(res => {                  
+            setUserState({
+                    token: res.data.accessToken,
+                    ...res.data.user
+                })  
+            localStorage.setItem("user", JSON.stringify({
+                token: res.data.accessToken,
+                ...res.data.user
+            })) 
+            navigate("/");                       
+        })
+        .catch(err => console.log(err))                     
+    };
+
+    const loginUser = (data) => {        
+        axios.post("http://localhost:8080/login", {
+            ...data
+        })
+            .then(res => {
+                setUserState({
+                    token: res.data.accessToken,
+                    ...res.data.user
+                })  
+                localStorage.setItem("user", JSON.stringify({
+                    token: res.data.accessToken,
+                    ...res.data.user
+                }))
+                navigate("/");
+            })
+            .catch(err => console.log(err))
+    };
+
+    const onSubmit = (data) => {
+        location.pathname === "/register" ?  registerUser(data) : loginUser(data)
+    };
     
     const value = {        
         userState,
@@ -23,7 +70,10 @@ export const Context = (props) => {
         setStateChecBox,
         stateChecBox,
         setTaskId,
-        taskId
+        taskId,
+        registerUser,
+        loginUser,
+        onSubmit
     };
 
     return <CustumContext.Provider value={value}>
