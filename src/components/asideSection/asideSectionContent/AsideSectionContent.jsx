@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useContext, useState } from 'react';
 import { CustumContext } from '../../../hookHelper/Context';
-import {useForm} from 'react-hook-form';
 import {v4 as uuidv4} from 'uuid';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -10,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AsideSectionContentCategryName from "./asideSectionContentCategryName";
 import AsideSectionContentCheckBox from "./asideSectionContentCheckBox";
 import AsideSectionContentCreateTask from "./asideSectionContentCreateTask";
+import AsideSectionContentCreateNewTask from "./asideSectionContentCreateTask/asideSectionContentCreateNewTask";
 
 
 import './AsideSectionContent.scss';
@@ -28,8 +28,7 @@ const AsideSectionContent = ({statusName}) => {
             status,
             setStatus,
             userState,
-            setUserState,
-            setStateChecBox,
+            setUserState,          
             stateChecBox,
             all,            
             setShow,
@@ -37,15 +36,7 @@ const AsideSectionContent = ({statusName}) => {
             valueInputCategory
         } = useContext(CustumContext); 
        
-        const {
-        register,
-        reset,
-        handleSubmit,
-            formState: {
-                errors
-        }
-    } = useForm({mode: "onblur"});
-  
+      
         const addTasks = (data) => {
             let newTask = {
             ...data,
@@ -78,8 +69,6 @@ const AsideSectionContent = ({statusName}) => {
                 localStorage.setItem("user", JSON.stringify({
                     ...data                           
                 }))
-
-                reset();
                 setShow(false);
             
                
@@ -117,8 +106,6 @@ const AsideSectionContent = ({statusName}) => {
                                 newCategory
                             ]                
                         }))
-        
-                        reset();
                         setShow(false);                  
                  
                     toast("Задача удалена!!!")
@@ -188,7 +175,7 @@ const AsideSectionContent = ({statusName}) => {
                     return ({...elem, categoryName: valueInputCategory})
                 } else {
                     return {...elem,  categoryName: elem.categoryName}
-                }})               
+                }})              
                 axios.patch(`http://localhost:8080/users/${userState.id}`, {
                     categories: 
                         newCategoryName 
@@ -213,16 +200,13 @@ const AsideSectionContent = ({statusName}) => {
                         categories: 
                             newCategoryName       
                     }))
-    
-                    reset();
                     setShowEdit(false);                  
              
                 toast("Категория изменена!!!")
             })
             .catch(err => toast(`Категория  не изменена!!!, ${err.message}`))
     } 
-    
-    
+        
     return ( 
         <div className='header-content'>           
             <ul             
@@ -246,15 +230,8 @@ const AsideSectionContent = ({statusName}) => {
                     }
                                                                                     
                     {
-                                !all && !show &&  
-                                <div className='header-content__button'>
-                                <span 
-                                    className='header-content__button_add'
-                                    onClick={() => setShow(true)}>➕</span>
-                                <button 
-                                    className='header-content__button_buttonAdd'
-                                    onClick={() => setShow(true)}>Новая задача</button>
-                            </div>
+                        !all && !show &&  
+                           <AsideSectionContentCreateNewTask setShow={setShow} />
                     }                    
             </ul>   
         </div>

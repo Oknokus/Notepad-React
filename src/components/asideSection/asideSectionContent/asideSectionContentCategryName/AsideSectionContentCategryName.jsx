@@ -64,7 +64,9 @@ const AsideSectionContentCategryName = ({id, categoryName, changeNameCategory, s
                                         <button className='header-content__btnAdd'>Редактировать Категорию</button>
                                         <button 
                                             className='header-content__close'
-                                            onClick={() => setShowEdit(false)}>Отмена</button>
+                                            onClick={() => setShowEdit(false)}>
+                                                Отмена
+                                        </button>
                                     </div>
                                 </form>
                             </label>)

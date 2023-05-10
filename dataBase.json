@@ -6,16 +6,38 @@
       "login": "Oknokus",
       "categories": [
         {
-          "categoryName": "22",
-          "id": "cd5d9d03-ab5a-4574-a27f-54827ae634c0",
+          "categoryName": "1",
+          "id": "41499380-a7e2-4bed-9541-160234b0e9c0",
           "color": "yellow",
-          "tasks": []
+          "tasks": [
+            {
+              "taskTitle": "111",
+              "id": "1340715b-6164-401b-8c48-08e0cd3f971d",
+              "isComplete": false
+            },
+            {
+              "taskTitle": "112",
+              "id": "fdd64e5d-b2a3-42be-9b3e-758951650a85",
+              "isComplete": false
+            }
+          ]
         },
         {
-          "categoryName": "333",
-          "id": "114febf9-9afe-408f-bb80-d092ba883e55",
+          "categoryName": "2",
+          "id": "04bf11a9-cbc7-44f0-8105-d8b69a295d6c",
           "color": "yellow",
-          "tasks": []
+          "tasks": [
+            {
+              "taskTitle": "222",
+              "id": "2d5e7181-bbe6-4384-91ca-d743d9d5cf46",
+              "isComplete": false
+            },
+            {
+              "taskTitle": "223",
+              "id": "225f857c-3741-4050-a2f5-9b9955dc310c",
+              "isComplete": false
+            }
+          ]
         }
       ],
       "id": 1

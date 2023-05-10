@@ -1,8 +1,8 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom';
 
-import {Context, CustumContext} from "./hookHelper/Context";
+import {Context} from "./hookHelper/Context";
 
 
 import App from './App';

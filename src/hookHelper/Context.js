@@ -14,8 +14,8 @@ export const Context = (props) => {
     const [taskId, setTaskId] = useState(false);
     const [categoryState, setCategoryState] = useState("");
     const [category, setCategory] = useState();
-    const[show, setShow] = useState(false);
-    const[valueInputCategory, setValueInputCategory] = useState('');  
+    const [show, setShow] = useState(false);
+    const [valueInputCategory, setValueInputCategory] = useState('');  
 
     const navigate = useNavigate();
     const location = useLocation();
